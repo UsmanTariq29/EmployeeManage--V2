@@ -1,0 +1,477 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Purchases Payment</title>
+</head>
+<body>
+    <section class="content">
+
+        <div class="card">
+            <div class="card-header">
+                <label class="card-title">Purchase Payment List</label>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12" style="float:right">
+                        <label style="float:right" class="col-md-2 form-label">Net Amount</label>
+                        <input style="float:right" type="text" value="0" disabled id="_netAmount" class="col-md-2 form-control">
+                    </div>
+
+                    <div class="col-md-2">
+                       <label id="txt_purNBR" style="font-weight:600"></label>
+                       </div>
+                       <div class="col-md-1">
+                       <i class="fa fa-window-maximize" id="iconid" style="display:none" onclick="openModal()" aria-hidden="true"></i>
+                        <label id="Date" style="display:none"></label>
+                    </div>
+                    <label id="SupplierName" style="display:none"></label>
+                        <label id="Amount" style="display:none"></label>
+                        <label id="Discount" style="display:none"></label>
+                        <label id="tax" style="display:none"></label>
+                        <label id="NetAmount" style="display:none"></label>
+                </div>
+
+                <br />
+                <br />
+                <div class="col-md-12">
+                    <label class="col-md-2">
+                        <input type="checkbox" id="c1" value="Cash" disabled onclick="disableFunction(this)" name="check">Cash
+                        <input type="text" placeholder="cash" value="0" disabled id="txt_Cash" onchange="sum()" class="form-control">
+                    </label>
+
+                    <label class="col-md-2">
+                        <input type="checkbox" id="c2" name="check" disabled value="Account" onclick="disableFunction(this)">Account
+                        <input type="text" placeholder="account" value="0" disabled id="txt_Account" onchange="sum()" class="form-control">
+                    </label>
+
+
+                    <label class="col-md-2">
+                        <input type="checkbox" id="c3" name="check" disabled value="Bank" onclick="disableFunction(this)">Bank
+                        <input type="text" placeholder="bank" value="0" disabled id="txt_Bank" onchange="sum()" class="form-control">
+                    </label>
+
+
+                    <label class="col-md-2">
+                        <input type="checkbox" id="c4" name="check" disabled value="Check" onclick="disableFunction(this)">Check
+                        <input type="text" placeholder="check" value="0" disabled id="txt_Check" onchange="sum()" class="form-control">
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <button type="button" style="float:right" id="clearenceButton" disabled class="btn btn-success" onclick="GetSelected()"> Clearence</button>
+            </div>
+            <!-- /.box -->
+            <!-- /.box-header -->
+            <div class="card-body" style="overflow-x:auto;height:400px; width:auto !important">
+                <table id="purchaseTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                            <th>Supplier</th>
+                            <th>InvoiceNo</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="emptyTr" style="align-content:center">
+                            <td colspan="5">
+                                <label id="emptyMessage"></label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+        <!-- /.row -->
+    </section>
+    <div class="modal-content bg-success " id="successModal" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <p id="successModalPara"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" onclick="updateTable();" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-success fade " id="modalPurchase" style="display: none; ">
+        <div class="modal-dialog" style="max-width:800px !important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 style="align-content:center">Purchase Modal</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <section class="content">
+                        <!-- /.box -->
+                        <!-- /.box-header -->
+                        <div class="card-body">
+                            <div class="card-body" style="overflow-x:auto;height:300px;width:700px   !important">
+
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label">PUR NBR.</label>
+                                        <input type="text" id="txt_purNBRModal" class="form-control" disabled onkeypress="" placeholder="PUR NBR." required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label" id="txt_date">Date</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label">SupplierName</label>
+                                        <input type="text" id="txt_SupplierName" class="form-control" disabled>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label">Amount</label>
+                                        <input type="text" disabled id="txt_Amount" value="0" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label">Discount</label>
+                                        <input type="text" value="0" disabled id="txt_discount" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label">Total Tax</label>
+                                        <input type="text" value="0" disabled id="txt_totalTax" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="col-sm-12 form-label">Net Amount</label>
+                                        <input type="text" value="0" disabled id="txt_netAmount" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <script>
+        window.onload = pageLoad();
+        function sum (){
+          
+            var cash = document.getElementById("txt_Cash").value;
+            var Account = document.getElementById("txt_Account").value;
+            var bank = document.getElementById("txt_Bank").value;
+            var check = document.getElementById("txt_Check").value;
+            
+          checkTotalPayable(cash,Account,bank,check);
+          }
+
+      function checkTotalPayable(){
+          
+            let sum = 0;
+            
+            
+            for (let i = 0; i < arguments.length; i++) {
+            
+                if(arguments[i] == "" )
+                {
+                    arguments[i] = 0;
+                    
+                }
+                sum += parseFloat(arguments[i]);     
+            }
+
+            var NetAmount = document.getElementById("txt_netAmount").value;
+
+            if (sum > NetAmount)
+            {
+                alert("Amount Exceeded!!");
+                document.getElementById("clearenceButton").disabled = true;
+                
+                return false;
+
+            }
+            document.getElementById("clearenceButton").disabled =false;
+            return true;
+      }
+
+        function openModal() {
+            $('#modalPurchase').modal('show');
+            document.getElementById("txt_purNBRModal").value = document.getElementById("txt_purNBR").innerHTML;
+
+            document.getElementById("txt_date").value = document.getElementById("Date").innerHTML;
+
+            document.getElementById("txt_SupplierName").value = document.getElementById("SupplierName").innerHTML;
+            document.getElementById("txt_Amount").value = document.getElementById("Amount").innerHTML;
+            document.getElementById("txt_discount").value = document.getElementById("Discount").innerHTML;
+            document.getElementById("txt_netAmount").value = document.getElementById("NetAmount").innerHTML;
+            document.getElementById("txt_totalTax").value = document.getElementById("tax").innerHTML;
+
+        }
+
+        function updateTable() {
+            $("#purchaseTable").load(window.location.href + " #purchaseTable");
+        }
+
+        function disableFunction(element) {
+
+            if (element.value === "Cash" && element.checked) {
+                $('#txt_Cash').removeAttr('disabled');
+            }
+            else if (element.value === "Account" && element.checked) {
+                $('#txt_Account').removeAttr('disabled');
+            }
+            else if (element.value === "Bank" && element.checked) {
+                $('#txt_Bank').removeAttr('disabled');
+            }
+            else if (element.value === "Check" && element.checked) {
+                $('#txt_Check').removeAttr('disabled');
+            }
+        }
+
+        function pageLoad() {
+
+            setTimeout(function () {
+
+                Purchasepayment();
+
+            }, 0001);
+        }
+
+        function Purchasepayment() {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("PurchasePayments", "Purchase")',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (response) {
+                    var data = JSON.stringify(response);
+                    $.each(response, function (key, value) {
+                        
+                        CreateTable(value.supplierName, value.invoiceNo, value.dateCreated, value.masterDescription,
+                            value.purchaseMasterId, value.totalAmount, value.totalDiscount, value.totalTax, value.amount);
+                    });
+                    if (!$.trim(response)) {
+                        document.getElementById("emptyMessage").innerHTML = "No Record Found !!";
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function checkboxselection(value) {
+            var get = document.getElementsByClassName("checkclass");
+
+            for (var i = 0; i < get.length; i++) {
+                get[i].checked = value.checked;
+            }
+        }
+
+        function GetSelected() {
+            //Reference the Table.
+            
+            var grid = document.getElementById("purchaseTable");
+            var items = grid.getElementsByTagName('input');
+
+            var Row = document.getElementById("purchaseTable");
+            var Cells = Row.getElementsByTagName("td");
+
+            var Cash = document.getElementById("txt_Cash").value;
+            var Account = document.getElementById("txt_Account").value;
+            var Bank = document.getElementById("txt_Bank").value;
+            var Check = document.getElementById("txt_Check").value;
+            var purNMBR = document.getElementById("txt_purNBR").innerHTML;
+
+                if (checkTotalPayable() === true)
+                {
+                    for (i = 0; i < items.length; i++) {
+                        if (items[i].type == "radio") {
+                            if (items[i].checked) {
+                                
+                                ChangeStatus(Cells[6].innerHTML.trim(),purNMBR,Cash,Account,Bank,Check);
+
+                            };
+                        }
+                    }
+                }
+                else {
+                    alert("please Enter Correct Amount !!!");
+        }
+        }
+
+        function loadModalInputFiled(){
+
+            document.getElementById("txt_purNBRModal").value = document.getElementById("txt_purNBR").innerHTML;
+
+            document.getElementById("txt_date").value = document.getElementById("Date").innerHTML;
+
+            document.getElementById("txt_SupplierName").value = document.getElementById("SupplierName").innerHTML;
+            document.getElementById("txt_Amount").value = document.getElementById("Amount").innerHTML;
+            document.getElementById("txt_discount").value = document.getElementById("Discount").innerHTML;
+            document.getElementById("txt_netAmount").value = document.getElementById("NetAmount").innerHTML;
+            document.getElementById("_netAmount").value = document.getElementById("NetAmount").innerHTML;
+            document.getElementById("txt_totalTax").value = document.getElementById("tax").innerHTML;
+
+
+        }
+
+        function getpurchaseId() {
+            // check Boxes Remove Disable Attribute
+            $('#c1').removeAttr('disabled');
+            $('#c2').removeAttr('disabled');
+            $('#c3').removeAttr('disabled');
+            $('#c4').removeAttr('disabled');
+            document.getElementById("iconid").style.display = "block";
+
+//
+            
+            var grid = document.getElementById("purchaseTable");
+            var items = grid.getElementsByTagName("input");
+
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type == "radio" && items[i].checked) {
+                    var row = items[i].parentNode.parentNode; // Get the parent row of the radio button
+                    var cells = row.getElementsByTagName("td");
+
+                    var rowData = [];
+                    for (var j = 1; j < cells.length; j++) {
+                        rowData.push(cells[j].innerHTML.trim());
+                    }
+                   
+
+                    getPurchaseDisplayNo(rowData[4], rowData[2], rowData[0], rowData[5],
+                        rowData[6], rowData[7], rowData[8]);
+
+
+                    break;
+                }
+            }
+        }
+
+        function getPurchaseDisplayNo(purchaseMasterId, date, suppliername, totalamount,
+            totaldiscount, totaltax, netamount) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("PurchaseDisplayNo", "Purchase")',
+                data: { purchaseMasterID: purchaseMasterId },
+                dataType: 'json',
+                success: function (response) {
+                    document.getElementById("txt_purNBR").innerHTML = response.voucherDisplayNumber
+                    document.getElementById("Date").innerHTML = date;
+                    document.getElementById("SupplierName").innerHTML = suppliername;
+                    document.getElementById("Amount").innerHTML = totalamount;
+                    document.getElementById("Discount").innerHTML = totaldiscount;
+                    document.getElementById("tax").innerHTML = totaltax;
+                    document.getElementById("NetAmount").innerHTML = netamount;
+
+                    loadModalInputFiled();
+
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function ChangeStatus(purchaseMasterId,purNMBR,CashPayment,AccountPayment,BankPayment,ChecquePayment) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ClearencePurchase", "Purchase")',
+                data: { PurchaseMasterId: purchaseMasterId,PurchaseNumber:purNMBR,Cash:CashPayment,Account:AccountPayment,Bank:BankPayment,Cheque:ChecquePayment },
+                dataType: 'json',
+                success: function (response) {
+                    if ($.trim(response) === 'true') {
+                        $('#modalPurchase').modal('hide');
+                        $('#successModal').modal('show');
+                        document.getElementById("successModalPara").innerHTML = "Status Changed Successfully";
+                        return false;
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function CreateTable(Name, InvoiceNo, Date, Description, purchaseMasterId, totalAmount,
+            totalDiscount, totalTax, amount) {
+            // creates a <table> element and a <tbody> element
+
+            var tbl = document.getElementById("purchaseTable");
+            // creates a table row
+            var row = document.createElement("tr");
+            var cRadio = document.createElement("td");
+            var cName = document.createElement("td");
+            var cinvoiceNo = document.createElement("td");
+            var cDate = document.createElement("td");
+            var cDescription = document.createElement("td");
+            var cpurchaseMasterId = document.createElement("td"); //6
+           var ctotalAmount = document.createElement("td"); //7
+           var ctotalDiscount = document.createElement("td"); //8
+            var ctotalTax = document.createElement("td"); //9
+            var camount = document.createElement("td"); //10
+            var Emptytr = document.getElementById("emptyTr");
+
+            cName.style.width = "250px";
+            cinvoiceNo.style.width = "250px";
+            cName.setAttribute("align", "left");
+            cinvoiceNo.setAttribute("align", "center");
+            cDate.setAttribute("width", "200px");
+            cDescription.setAttribute("width", "200px");
+            cRadio.setAttribute("width", "50px");
+            cpurchaseMasterId.setAttribute("hidden", true);
+            ctotalAmount.setAttribute("hidden", true);
+            ctotalDiscount.setAttribute("hidden", true);
+            ctotalTax.setAttribute("hidden", true);
+            camount.setAttribute("hidden", true);
+            Emptytr.setAttribute("hidden", true);
+
+            cRadio.innerHTML = '<input type="radio" name="radio" onclick="getpurchaseId()" />'
+            cName.innerHTML = Name;
+            cinvoiceNo.innerHTML = InvoiceNo;
+            cDate.innerHTML = Date;
+            cDescription.innerHTML = Description;
+            cpurchaseMasterId.innerHTML = purchaseMasterId;
+            ctotalAmount.innerHTML = totalAmount;
+            ctotalDiscount.innerHTML = totalDiscount
+            ctotalTax.innerHTML = totalTax;
+            camount.innerHTML = amount;
+
+            row.appendChild(cRadio);
+            row.appendChild(cName);
+            row.appendChild(cinvoiceNo);
+            row.appendChild(cDate);
+            row.appendChild(cDescription);
+            row.appendChild(cpurchaseMasterId);
+            row.appendChild(ctotalAmount);
+            row.appendChild(ctotalDiscount);
+            row.appendChild(ctotalTax);
+            row.appendChild(camount);
+
+            tbl.appendChild(row);
+        }
+
+
+    </script>
+</body>
+
+</html>

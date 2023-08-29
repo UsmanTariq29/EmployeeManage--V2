@@ -1,0 +1,85 @@
+﻿@model EmployeeManage.ViewModels.Request.BarcodeRequest
+
+@{
+    ViewData["Title"] = "BarcodeGeneration Page";
+}
+
+@using (Html.BeginForm("EditBarcode", "Barcode", FormMethod.Post))
+{
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    <div class="form-group row">
+
+        <div class="col-md-4">
+            <label class="col-sm-3 form-label">ItemGroup</label>
+            <select class="form-control select2 " id="itemGrouplist" name="itemGrouplist" onchange="getitems(this.value)" required></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-4">
+            <label class="col-sm-3 form-label">Item</label>
+            <select class="form-control select2" asp-for="ItemId" id="ItemsDropdown" name="ItemsDropdown" required></select>
+        </div>
+    </div>
+
+    <input type="submit" value="Generate Barcode" />
+}
+
+<br />
+
+<script type="text/javascript">
+
+    window.onload = pageLoad();
+
+    function pageLoad() {
+
+        setTimeout(function () {
+
+            getitemsGroup();
+
+        }, 0001);
+
+    }
+
+            function getitems(value) {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getitemsData", "Promotion")',
+                data: { id: value },
+                dataType: 'json',
+                success: function (response) {
+
+                    var list = '<option value="-1">Please Select Item</option>';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].itemId + '">' + response[i].itemName + '</option>';
+                    }
+                    $("#ItemsDropdown").html(list);
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+}
+        function getitemsGroup() {
+            $.ajax({
+                type: "Get",
+                url:   '@Url.Action("getitemsGroupData", "Purchase")',
+                dataType: 'json',
+                success: function (response) {
+                    var list = '';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].value + '">' + response[i].text+ '</option>';
+                    }
+                    $("#itemGrouplist").html(list);
+
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+</script>

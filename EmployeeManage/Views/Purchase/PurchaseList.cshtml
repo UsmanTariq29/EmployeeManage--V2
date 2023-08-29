@@ -1,0 +1,211 @@
+﻿
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title> Purchases Page</title>
+</head>
+<body>
+    <section class="content">
+
+        <div class="card">
+            <div class="card-header">
+                <label class="card-title">Purchase List</label>
+            </div>
+            <!-- /.box -->
+            <!-- /.box-header -->
+            <div class="card-body" style="overflow-x:auto;height:400px; width:auto !important">
+                <table id="purchaseTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Supplier</th>
+                            <th>InvoiceNo</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="emptyTr" style="align-content:center">
+                            <td colspan="5">
+                               <label id="emptyMessage"></label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <!-- /.box -->
+        </div>
+        <button type="button" style="float:right" class="btn btn-primary" onclick="GetSelected()"> SuperVision </button>
+        <!-- /.col -->
+        <!-- /.row -->
+    </section>
+    <div class="modal modal-success " id="successModal" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                
+                <div class="modal-body">
+                    <p id="successModalPara"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" onclick="updateTable();" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<script>
+        window.onload = pageLoad();
+
+        function updateTable() {
+            $("#purchaseTable").load(window.location.href + " #purchaseTable");
+        }
+
+        function pageLoad() {
+
+            setTimeout(function () {
+
+                Purchases();
+
+            }, 0001);
+        }
+        function Purchases() {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("GetPurchases", "Purchase")',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (response) {
+                    var data = JSON.stringify(response);
+                    $.each(response, function (key, value) {
+
+                        CreateTable(value.supplierName, value.invoiceNo, value.dateCreated, value.masterDescription,value.purchaseMasterId);
+                    });
+                    if (!$.trim(response)) {
+                        document.getElementById("emptyMessage").innerHTML = "No Record Found !!";
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function GetSelected() {
+
+            var grid = document.getElementById("purchaseTable");
+            var items = grid.getElementsByTagName("input");
+
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type == "radio" && items[i].checked) {
+                    var row = items[i].parentNode.parentNode; // Get the parent row of the radio button
+                    var cells = row.getElementsByTagName("td");
+
+                    var rowData = [];
+                    for (var j = 1; j < cells.length; j++) {
+                        rowData.push(cells[j].innerHTML.trim());
+                    }
+                    ChangeStatus(rowData[4]);
+                    break;
+                }
+            }
+            }
+
+            //var grid = document.getElementById("purchaseTable");
+            //var items = grid.getElementsByTagName("input");
+            
+            //var row = document.getElementById("purchaseTable");
+            //var rows = document.getElementsByTagName("tr");
+            //var cells = row.getElementsByTagName("td");
+
+            //for (i = 0; i < items.length; i++)
+            //{
+            //    if (items[i].type == "radio" && items[i].checked) {
+            //        alert("usman");
+            //        alert(items[i].checked);
+            //        alert(cells[2].innerHTML.trim());
+                    
+            //    }
+            //}
+            //}
+        
+        
+
+        function ChangeStatus(purchaseMasterId) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SuperVisionPurchase", "Purchase")',
+                data: { purchaseMasterId: purchaseMasterId },
+                dataType: 'json',
+                success: function (response) {
+                    if ($.trim(response) === 'true') {
+
+                        $('#successModal').modal('show');
+                        document.getElementById("successModalPara").innerHTML = "Status Changed Successfully";
+                        
+
+                        return false;
+
+                    }
+
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function CreateTable(Name, InvoiceNo, Date, Description,purchaseMasterId) {
+            // creates a <table> element and a <tbody> element
+
+            var tbl = document.getElementById("purchaseTable");
+            // creates a table row
+            var row = document.createElement("tr");
+            var cName = document.createElement("td");
+            var cinvoiceNo = document.createElement("td");
+            var cDate = document.createElement("td");
+            var cDescription = document.createElement("td");
+            var cRadio = document.createElement("td");
+            var cpurchaseMasterId = document.createElement("td");
+            var Emptytr = document.getElementById("emptyTr");
+
+
+            cName.style.width = "250px";
+            cinvoiceNo.style.width = "250px";
+            cName.setAttribute("align", "left");
+            cinvoiceNo.setAttribute("align", "center");
+            cDate.setAttribute("width", "200px");
+            cDescription.setAttribute("width", "200px");
+            cRadio.setAttribute("width", "50px");
+            cpurchaseMasterId.setAttribute("hidden", true);
+            Emptytr.setAttribute("hidden", true);
+
+            cName.innerHTML = Name;
+            cinvoiceNo.innerHTML = InvoiceNo;
+            cDate.innerHTML = Date;
+            cDescription.innerHTML = Description;
+            cRadio.innerHTML = '<input type="radio" id="selectedRow"  name="check" />'
+            cpurchaseMasterId.innerHTML = purchaseMasterId
+
+            row.appendChild(cName);
+            row.appendChild(cinvoiceNo);
+            row.appendChild(cDate);
+            row.appendChild(cDescription);
+            row.appendChild(cRadio);
+            row.appendChild(cpurchaseMasterId);
+
+            tbl.appendChild(row);
+        }
+
+
+    </script>
+
+</body>
+</html>

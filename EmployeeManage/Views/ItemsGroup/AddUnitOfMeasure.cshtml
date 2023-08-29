@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpcontextAccessor
+@model EmployeeManage.ViewModels.Request.UnitOfMeasureRequest
+
+@{
+    ViewBag.Title = "Add Unit Of Measure";
+}
+
+<body>
+    <div class="card">
+        <div class="card-header">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Unit Of Measure</h3>
+            </div>
+        </div>
+
+
+            <!-- /.box-header -->
+            <div class="card-body">
+                <form enctype="multipart/form-data" asp-controller="ItemsGroup" asp-action="AddUnitOfMeasure" method="post" class="m-3">
+                    @if (TempData["Success"] != null)
+                    {
+                        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                    }
+                    <div class="form-group row">
+                        <label asp-for="unitOfMeasure" class="col-sm-2 form-label">UOM</label>
+                        <div class="col-md-4">
+                            <input asp-for="unitOfMeasure" type="text" class="form-control" required placeholder="Unit Of Measure">
+                            @Html.ValidationMessageFor(m => m.unitOfMeasure, ""/* or null or what you want the error message to be */, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="UnitOfMeasureDescription" class="col-sm-2 form-label">Description</label>
+                        <div class="col-md-4">
+                            <textarea asp-for="UnitOfMeasureDescription" type="text" class="form-control" placeholder="Enter Description"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary float-md-right">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                </form>
+            </div>
+        </div>
+
+</body>

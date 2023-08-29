@@ -1,0 +1,815 @@
+﻿body {
+}
+
+.border-light-gray {
+    border: 1px solid;
+    border-color: gray;
+    padding: 5px;
+}
+
+.no-margin {
+    margin-top: -5px !important;
+}
+
+.tdLBL {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.pink {
+    padding: 10px;
+    background-color: #FFCCCC !important;
+}
+
+.bg-pink {
+    background-color: #FFCCCC !important;
+}
+
+.txt_2_ID_keyin {
+    border: 1px solid #8F9B81;
+    text-align: center;
+    background-color: #008000;
+    background-color: #CCCCCC;
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: #006666;
+    ssajl text-decoration: none;
+    padding-right: 0px;
+    padding-left: 3px;
+    padding-top: 0px;
+    text-transform: uppercase;
+}
+
+.tbl_FCY_ENTRY_ROW {
+    border: 1pt dotted #000099;
+    background-color: #C9C9F1;
+    color: #000099;
+    padding: 10px;
+}
+
+.Tittle_10 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    color: #E11516;
+    font-weight: bold;
+    background-color: #FFFF00;
+}
+
+.Tittle_11 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    color: #494949;
+    font-weight: bold;
+}
+
+.Tittle_10_gray_light {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    color: #575757;
+    font-weight: normal;
+}
+
+.Tittle_10_gray_bold {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13pt;
+    color: #575757;
+    font-weight: bold;
+}
+
+.margin-tn {
+    margin-top: 10px;
+}
+
+.margin-b-tn {
+    margin-bottom: 10px;
+}
+
+.lbl_info {
+    font-family: Tahoma;
+    font-size: small;
+    font-weight: bold !important;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: capitalize;
+    color: #000080;
+}
+
+.div_main {
+    margin-top: -30px !Important;
+    margin-bottom: -30px !Important;
+}
+
+
+.form-control {
+    /*height: 30px !important;*/
+    padding: 5px 10px !important;
+    font-size: 13px !important;
+}
+
+.pnl_popup {
+    Z-INDEX: 300;
+    LEFT: 20%;
+    POSITION: fixed;
+    TOP: 25%;
+}
+
+.pnl_popup_msg {
+    Z-INDEX: 300;
+    LEFT: 35%;
+    POSITION: fixed;
+    TOP: 35%;
+    text-align: center;
+}
+
+
+.pnl_popup_msg2 {
+    Z-INDEX: 2050;
+    LEFT: 35%;
+    POSITION: fixed;
+    TOP: 35%;
+    text-align: center;
+}
+
+.font-13 {
+    font-size: 13px;
+}
+
+.font-15 {
+    font-size: 15px !important;
+}
+
+.disable-clr {
+    background-color: rgb(238,238,238) !important;
+}
+
+.top-padding {
+    padding-top: 25px;
+}
+
+.view_border {
+    border: 1px solid;
+    padding-left: 15%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    background-color: #c9c9f1;
+    width: 70%;
+}
+
+.panel-border {
+    border: 1px solid;
+    border-color: silver;
+}
+
+.margin-tf {
+    margin-top: 25px !important;
+}
+
+.margin-nt {
+    margin-top: 20px !important;
+}
+
+.border-black {
+    border: 1px dotted;
+    border-color: black;
+    padding: 10px;
+    background-color: lightgray;
+}
+
+
+.margin-right-top {
+    margin-left: 5px;
+}
+
+.height-th {
+    height: 300px !important;
+}
+
+.hight-tpx {
+    height: 28px;
+}
+
+.gray-bg {
+    background-color: #e0e0e0;
+}
+
+
+/*Modal Popup*/
+.modalBackground {
+    background-color: Black;
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+}
+
+.modalPopup {
+    background-color: #ffffdd;
+    border-width: 3px;
+    border-style: solid;
+    border-color: Gray;
+    padding: 3px;
+}
+
+.pad-left-eighty {
+    padding-left: 77px;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 5px 5px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+    .list-group-item:hover {
+        background-color: lightgray !important;
+    }
+
+.list-item-no-pad {
+    position: relative;
+    display: block;
+    margin-bottom: -18px;
+    background-color: #CCCCCC;
+    border: 1px solid #ddd;
+}
+
+.h2 {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.tdLBL_gridTotal {
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-align: right;
+    font-weight: bold;
+    color: #800000;
+}
+
+.list_Item {
+    margin-right: 30px !important;
+    font-weight: 600 !important;
+}
+
+.box-active {
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24) !important;
+}
+
+.jumbotron {
+    background-color: transparent !important;
+}
+
+.active_bold {
+    color: black !Important;
+    /*font-weight: 600 !Important;*/
+}
+
+.bg-gray {
+    color: white !important;
+    background-color: gray !important;
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #00a65a;
+    border-radius: .25rem;
+    margin-bottom: 10px;
+    margin-top: 8px;
+}
+
+.card-branch {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 7px;
+    border-color: rgba(0,0,0,.125);
+    font-weight: 600;
+    text-align: center;
+}
+
+.no-dots {
+    list-style: none !important;
+}
+
+
+
+/*_____________________Tab Classes___________________________*/
+.panel.with-nav-tabs .panel-heading {
+    padding: 5px 5px 0 5px;
+}
+
+.panel.with-nav-tabs .nav-tabs {
+    border-bottom: none;
+}
+
+.panel.with-nav-tabs .nav-justified {
+    margin-bottom: -1px;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li > a,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+}
+
+    .with-nav-tabs.panel-default .nav-tabs > .open > a,
+    .with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
+    .with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
+    .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+    .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+        color: #777;
+        background-color: #ddd;
+        border-color: transparent;
+    }
+
+.with-nav-tabs.panel-default .nav-tabs > li.active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
+    color: #555;
+    background-color: #fff;
+    border-color: #ddd;
+    border-bottom-color: transparent;
+}
+
+.SelectedTab {
+    width: 100%;
+    padding: 25px;
+    /*background-color: coral;*/
+    /*color: white;*/
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+}
+
+.UnSelectedTab {
+    width: 100%;
+    padding: 10px;
+    /*background-color: coral;*/
+    /*color: white;*/
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    color: black;
+}
+/*___________________________________________-*/
+
+
+
+
+.card {
+    margin-bottom: 2.2rem;
+    box-shadow: -8px 12px 18px 0 rgba(25,42,70,.13);
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+/* Classes for HTML Report*/
+
+.table-right {
+    /*text-align:right;*/
+    /*font-size:25px;*/
+    /*float:right;*/
+}
+
+    .table-right th {
+        text-align: right;
+    }
+
+.h-34 {
+    height: 34px;
+}
+
+.w-60 {
+    width: 60px;
+}
+
+.btn-print {
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+    width: 70px;
+    position: relative;
+}
+
+    .btn-print::before {
+        position: absolute;
+        content: "\f02f";
+        /*margin-top: 5px;*/
+        /*margin-left: -14px;*/
+        left: 4px;
+        color: black;
+        font-size: 14px;
+        font-family: "FontAwesome";
+    }
+
+    .btn-print:hover {
+        background-color: #ddd;
+    }
+
+
+.btn-process {
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+    width: 85px;
+    position: relative;
+}
+
+    .btn-process::before {
+        position: absolute;
+        content: "\f1ce";
+        /*margin-top: 5px;*/
+        /*margin-left: -14px;*/
+        left: 4px;
+        color: black;
+        font-size: 14px;
+        font-family: "FontAwesome";
+        /*animation: fa-spin 2s infinite linear;*/
+    }
+
+    .btn-process:hover {
+        background-color: #ddd;
+    }
+
+.btn-Edit {
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+    width: 70px;
+    position: relative;
+}
+
+
+    .btn-Edit::before {
+        position: absolute;
+        content: "\f044";
+        /*margin-top: 5px;*/
+        /*margin-left: -14px;*/
+        left: 4px;
+        color: black;
+        font-size: 14px;
+        font-family: "FontAwesome";
+    }
+
+    .btn-Edit:hover {
+        background-color: #ddd;
+    }
+
+
+.btn-Edit2 {
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+
+    .btn-Edit2::before {
+        position: absolute;
+        content: "\f044";
+        left: 7px;
+        color: black;
+        font-size: 14px;
+        font-family: "FontAwesome";
+    }
+
+    .btn-Edit2:hover {
+        background-color: #ddd;
+    }
+
+.Grd_Head {
+    border-bottom-width: 2px;
+    background-color: white !important;
+    border-bottom: 2px solid silver;
+    height: 35px !important;
+}
+
+
+.accordionHeader {
+    border: 1px solid #c0c0c0;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    height: 42px;
+    overflow: hidden !important;
+}
+
+    .accordionHeader::after {
+        position: absolute;
+        content: "\f078";
+        margin-top: -31px;
+        right: 30px;
+        color: black;
+        font-size: 15px;
+        font-family: "FontAwesome";
+    }
+
+    .accordionHeader a {
+        color: #000;
+        background: none;
+        text-decoration: none;
+    }
+
+
+.accordionHeaderRight {
+    border: 1px solid #c0c0c0;
+    background-color: #e0e0e0;
+    margin-top: 5px;
+    height: 55px;
+    cursor: pointer;
+    height: 42px;
+    overflow: hidden;
+}
+
+    .accordionHeaderRight::after {
+        position: absolute;
+        content: "\f078";
+        margin-top: -31px;
+        left: 30px;
+        color: black;
+        font-size: 15px;
+        font-family: "FontAwesome";
+    }
+
+    .accordionHeaderRight a {
+        color: #000;
+        background: none;
+        text-decoration: none;
+    }
+
+.accordionHeaderSelected {
+    border: 1px solid #c0c0c0;
+    color: black;
+    background-color: #E0E0E0;
+    cursor: pointer;
+    font-family: fa fa-minus;
+    position: relative;
+    height: 42px;
+}
+
+    .accordionHeaderSelected::after {
+        /*This is Down Icon which is use in Ajax Penal*/
+        position: absolute;
+        content: "\f077";
+        margin-top: -31px;
+        color: black;
+        right: 15px;
+        font-size: 15px;
+        font-family: "FontAwesome";
+    }
+
+
+.accordionHeaderSelectedRight {
+    border: 1px solid #c0c0c0;
+    color: black;
+    background-color: #E0E0E0;
+    margin-top: 5px;
+    cursor: pointer;
+    font-family: fa fa-minus;
+    position: relative;
+    height: 42px;
+}
+
+    .accordionHeaderSelectedRight::after {
+        /*This is Down Icon which is use in Ajax Penal*/
+        position: absolute;
+        content: "\f077";
+        margin-top: -31px;
+        left: 15px;
+        color: black;
+        font-size: 15px;
+        font-family: "FontAwesome";
+    }
+
+
+
+.icon-up {
+    margin-top: 10px;
+    margin-right: 15px;
+    float: right;
+    color: #e0e0e0;
+    font-size: 20px;
+}
+
+.accordionContent {
+    /*background-color: #C9C9F1; /*/
+    background-color: #fff;
+    border: 1px solid #d2d6de;
+    border-top: none;
+    padding: 5px;
+    padding-top: 10px;
+}
+
+
+.padding-lf-v {
+    padding-left: 5px;
+}
+
+.gr-count-i {
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+/*These Classes use for minus Icon in Ajax*/
+
+.accordionHeader-minus {
+    border: 1px solid silver;
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+    .accordionHeader-minus::after {
+        position: absolute;
+        content: "\f067";
+        margin-top: -25px;
+        right: 30px;
+        color: #3c8dbc;
+        font-size: 12px;
+        font-family: "FontAwesome";
+    }
+
+    .accordionHeader-minus a {
+        color: #000;
+        background: none;
+        text-decoration: none;
+    }
+
+
+
+
+
+.accordionHeader-minus-Right {
+    border: 1px solid silver;
+    background-color: #e0e0e0;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+    .accordionHeader-minus-Right::after {
+        position: absolute;
+        content: "\f067";
+        margin-top: -25px;
+        left: 30px;
+        color: #3c8dbc;
+        font-size: 12px;
+        font-family: "FontAwesome";
+    }
+
+    .accordionHeader-minus-Right a {
+        color: #000;
+        background: none;
+        text-decoration: none;
+    }
+
+/*_______________________________________________________*/
+
+/*These Classes use for plus Icon in Ajax*/
+
+.accordionHeaderSelected-plus {
+    border: 1px solid #d2d6de;
+    color: white;
+    background-color: #3c8dbc;
+    cursor: pointer;
+    position: relative;
+}
+
+    .accordionHeaderSelected-plus::after {
+        /*This is Down Icon which is use in Ajax Penal*/
+        position: absolute;
+        content: "\f068";
+        margin-top: -25px;
+        right: 15px;
+        color: #fff;
+        font-size: 12px;
+        font-family: "FontAwesome";
+    }
+
+
+
+.accordionHeaderSelected-plus-Right {
+    border: 1px solid #d2d6de;
+    color: white;
+    background-color: #3c8dbc;
+    cursor: pointer;
+    position: relative;
+}
+
+    .accordionHeaderSelected-plus-Right::after {
+        /*This is Down Icon which is use in Ajax Penal*/
+        position: absolute;
+        content: "\f068";
+        margin-top: -25px;
+        left: 15px;
+        color: #fff;
+        font-size: 12px;
+        font-family: "FontAwesome";
+    }
+/*__________________________________________*/
+
+
+.tdLBL_nec {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+    position: relative;
+}
+
+    .tdLBL_nec::after {
+        position: absolute;
+        content: "\f069";
+        margin-top: 5px;
+        margin-left: 5px;
+        /*left: 25px;*/
+        color: #b0b4bb;
+        font-size: 8px;
+        font-family: "FontAwesome";
+        font-weight: lighter !important;
+    }
+
+    .tdLBL_nec.left {
+        text-align: left;
+    }
+
+    .tdLBL_nec.right {
+        text-align: right;
+    }
+
+.icon-dt {
+    color: #b0b4bb;
+    font-size: 8px;
+    font-weight: lighter;
+}
+
+
+.sp_count_cls {
+    display: inline-block;
+    min-width: 14px;
+    padding: 3px 7px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    position: absolute;
+    margin-left: -32px;
+    margin-top: 8px;
+}
+
+.acc_margin {
+    margin-top: -8px;
+}
+
+.modal-header-custom {
+    padding-left: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-right: 15px;
+    padding: 0px 15px;
+    display: inline-block;
+    width: 100%;
+}
+
+h3.class {
+    float: left;
+    padding: 0 20px;
+}
+
+
+.btn-class {
+    text-align: right;
+    float: right;
+    margin: 15px 10px;
+}
+
+.no-dots {
+    list-style-type: none;
+}
+
+.with-background {
+    background-color: honeydew;
+}
+
+.filterSection {
+    border: 1px solid #EAEAEA;
+    padding: 10px;
+    box-shadow: 5px 5px 15px 1px #EAEAEA inset;
+}

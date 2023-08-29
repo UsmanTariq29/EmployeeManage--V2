@@ -1,0 +1,89 @@
+﻿@model EmployeeManage.ViewModels.Responses.EmployeedetailsVM
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Details Page</title>
+</head>
+<body>
+
+
+    <div class="card">
+        <div class="card-body">
+            <div style="width:65%">
+                @Html.HiddenFor(model => model.EmployeeID)
+                <div class="form-group row">
+                    <label asp-for="EmployeeName" class="col-sm-2 form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input asp-for="EmployeeName" type="text" class="form-control" />
+                        <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="EmployeeEmail" class="col-sm-2 form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input asp-for="EmployeeEmail" type="text" class="form-control" />
+                        <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="grossSalary" class="col-sm-2 form-label">GrossSalary</label>
+                    <div class="col-sm-10">
+                        <input asp-for="grossSalary" type="number" class="form-control" />
+                        <span asp-validation-for="grossSalary" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DepartmentId" class="col-sm-2 form-label">Department</label>
+                <div class="col-md-5">
+                    @Html.DropDownList("DepartmentId", Model.DepartmentList as SelectList, new { @class = "form-control select2  " })
+                    @Html.ValidationMessageFor(x => x.DepartmentId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="branchId" class="col-sm-2 form-label">Branch</label>
+                <div class="col-md-5">
+                    @Html.DropDownList("branchId", Model.BranchList as SelectList, new { @class = "form-control select2  " })
+                    @Html.ValidationMessageFor(x => x.branchId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="NationalityId" class="col-sm-2 form-label">Nationality</label>
+                <div class="col-md-5">
+                    @Html.DropDownList("NationalityId", Model.NationalityList as SelectList, new { @class = "form-control select2  " })
+                    @Html.ValidationMessageFor(x => x.NationalityId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="card-footer text-center">
+                <a asp-controller="Home" asp-action="" class="btn btn-primary">Back</a>
+                <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.EmployeeID" class="btn btn-primary">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+
+
+
+        </div>
+        <div asp-validation-summary="All"></div>
+
+        @section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var filename = $(this).val().split("\\").pop();
+                        $(this).next('custom-file-label').html(filename);
+                    });
+                });
+            </script>
+        }
+
+
+
+    </div>
+
+
+
+
+
+</body>
+</html>

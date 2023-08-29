@@ -1,0 +1,71 @@
+﻿@model IEnumerable<EmployeeManage.ViewModels.Responses.ItemsDataListsResponseVM>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Update Items Page</title>
+</head>
+<body>
+    <section class="content">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="box-title">All Items</h3>
+                    </div>
+                    <!-- /.box -->
+                    <!-- /.box-header -->
+                    <div class="card-body">
+                        <div class="card-body table-responsive p-0">
+
+                            <table id="example2" class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Group</th>
+                                        <th>Price</th>
+                                        <th>Unit Of Measure</th>
+                                        <th>UOM Description</th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="width:auto">
+                                    @foreach (var Items in Model)
+                                    {
+                                        <tr>
+                                            <td>
+
+                                                @Html.DisplayFor(model => Items.ItemName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => Items.ItemGroupName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => Items.ItemsPrice)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => Items.unitOfMeasure)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(model => Items.UnitOfMeasureDescription)
+                                            </td>
+                                            <td>
+
+                                                <a asp-controller="ItemsGroup" asp-action="EditItems" asp-route-id="@Items.ItemId" class="fa fa-edit"></a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+</body>
+</html>

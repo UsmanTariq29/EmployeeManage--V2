@@ -1,0 +1,520 @@
+﻿@model EmployeeManage.ViewModels.Responses.EmployeeBirthdayAndNewHires
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DashBoard 1</title>
+</head>
+<body>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <span id="ctl00_lblTitle_MN">Management</span>
+            <small> <span id="ctl00_lblTitle">Document And Employee Dashboard</span></small>
+            <small></small>
+        </h1>
+        <ol class="breadcrumb">
+
+            <a id="ctl00_HyperLink1" title="Home" class="" href="frmIndex.aspx"><img title="Home" src="images/home-page.png" alt="" style="border-width:0px;"></a>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+
+    <div class="div_main">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box">
+
+                            <div class="form-horizontal">
+                                <div class="box-body">
+                                    <div class="container">
+
+                                        <div class="row">
+
+                                            <div class="col-lg-3 col-xs-6">
+                                                <!-- small box -->
+                                                <div class="small-box bg-aqua">
+                                                    <div class="inner">
+                                                        <h3 id="ctl00_mainPanel_lbl_Document_Expiry">@Model.employeeExpireDoc.Count()</h3>
+
+                                                        <p>Document Expiry</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion ion-briefcase"></i>
+                                                    </div>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#doc_exp_id" class="small-box-footer collapsed" aria-expanded="false">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-xs-6">
+                                                <!-- small box -->
+                                                <div class="small-box bg-orange">
+                                                    <div class="inner">
+                                                        <h3 id="ctl00_mainPanel_lbl_Late_Coming">@Model.activeEmployees.Count()</h3>
+                                                        <p>Active Employee</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion-android-bicycle"></i>
+                                                    </div>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#late_coming_Id" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-xs-6">
+                                                <!-- small box -->
+                                                <div class="small-box bg-gray">
+                                                    <div class="inner">
+                                                        <h3 id="ctl00_mainPanel_lbl_Total_Leaves">0</h3>
+
+                                                        <p>TEXT-----</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion-android-exit"></i>
+                                                    </div>
+
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#leaveEmp_Id" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-xs-6">
+                                                <!-- small box -->
+                                                <div class="small-box bg-red">
+                                                    <div class="inner">
+                                                        <h3 id="ctl00_mainPanel_lbl_Total_Absents">70</h3>
+
+                                                        <p>TEXT-----</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion-android-home"></i>
+
+                                                    </div>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#absent_emp_id" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="container">
+                                                <div class="panel-group" id="accordion">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a href="#doc_exp_id" id="ctl00_mainPanel_a_doc_exp_id" data-toggle="collapse" data-parent="#accordion" class="collapsed" aria-expanded="false">DOCUMENT EXPIRY</a>
+                                                            </h4>
+                                                        </div>
+
+                                                        <div id="doc_exp_id" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <br>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+
+                                                                <div class="col-md-4" style="float: right">
+
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </div>
+                                                                        <input name="ctl00$mainPanel$txt_search_doc_exp" type="text" id="ctl00_mainPanel_txt_search_doc_exp" class="form-control" placeholder="Search.." onkeyup="Search_Gridview(this)">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+
+                                                                    <div id="ctl00_mainPanel_Panel4" class="panel panel-border" style="height:300px;overflow:auto;">
+
+                                                                        <div>
+
+                                                                            <table class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" rules="all" border="1" id="ctl00_mainPanel_Gv" style="border-collapse:collapse;">
+                                                                                <tbody>
+                                                                                    <tr class="Grd_Head">
+                                                                                        <th scope="col" style="width:50pt;"> </th>
+                                                                                        <th scope="col" style="width:90pt;">Branch</th>
+                                                                                        <th scope="col" style="width:100pt;">Employee</th>
+                                                                                        <th scope="col" style="width:120pt;">Document</th>
+                                                                                        <th scope="col" style="width:50pt;">Expiry Date</th>
+                                                                                        <th scope="col" style="width:20pt;">Expiry Days</th>
+                                                                                    </tr>
+                                                                                    @foreach (var emp in Model.employeeExpireDoc)
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <a class="btn btn-print"
+                                                                                                   onclick="location.href='@Url.Action("DownloadDocument", "Document", new {id = emp.DocumentId})'">
+                                                                                                    Print
+                                                                                                </a>
+                                                                                            </td>
+                                                                                            <td> @Html.DisplayFor(model => emp.BranchName)</td>
+                                                                                            <td> @Html.DisplayFor(model => emp.EmolyeeName)</td>
+                                                                                            <td> @Html.DisplayFor(model => emp.DocumentName)</td>
+
+                                                                                            <td> @Html.DisplayFor(model => emp.ExpireDocument)</td>
+                                                                                            <td> @Html.DisplayFor(model => emp.Expiredays)</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#late_coming_Id" class="collapsed" aria-expanded="false">Active Employee</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="late_coming_Id" class="panel-collapse collapse" aria-expanded="false">
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <br>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-4" style="float: right">
+
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </div>
+                                                                        <input name="ctl00$mainPanel$txt_search_Latecoming" type="text" id="ctl00_mainPanel_txt_search_Latecoming" class="form-control" placeholder="Search.." onkeyup="Search_Gridview_2(this)">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div id="ctl00_mainPanel_pnl_db_1">
+
+                                                                        <div id="ctl00_mainPanel_Panel1" class="panel panel-border" style="height:300px;overflow:auto;">
+
+                                                                            <div>
+                                                                                <table class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" rules="all" border="1" id="ctl00_mainPanel_GV2" style="border-collapse:collapse;">
+                                                                                    <tbody>
+                                                                                        <tr class="Grd_Head">
+                                                                                            <th scope="col" style="width:90pt;">Employee Name</th>
+                                                                                            <th scope="col" style="width:100pt;">Branch</th>
+                                                                                            <th scope="col" style="width:120pt;">Email</th>
+                                                                                            <th scope="col" style="width:50pt;">Department</th>
+                                                                                        </tr>
+                                                                                        @foreach (var emp in Model.activeEmployees)
+                                                                                        {
+                                                                                            <tr>
+                                                                                               
+                                                                                                <td> @Html.DisplayFor(model => emp.EmployeeName)</td>
+                                                                                                <td> @Html.DisplayFor(model => emp.BranchName)</td>
+                                                                                                <td> @Html.DisplayFor(model => emp.EmployeeEmail)</td>
+                                                                                                <td> @Html.DisplayFor(model => emp.DepartmentName)</td>
+                                                                                            </tr>
+                                                                                        }
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#leaveEmp_Id" class="collapsed" aria-expanded="false">TEXT----</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="leaveEmp_Id" class="panel-collapse collapse" aria-expanded="false">
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <br>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-4" style="float: right">
+
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </div>
+                                                                        <input name="ctl00$mainPanel$txt_search_leave" type="text" id="ctl00_mainPanel_txt_search_leave" class="form-control" placeholder="Search.." onkeyup="Search_Gridview_4(this)">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div id="ctl00_mainPanel_pnl_db_3">
+
+                                                                        <div id="ctl00_mainPanel_Panel3" class="panel panel-border" style="height:300px;overflow:auto;">
+
+                                                                            <div>
+                                                                                <table class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" rules="all" border="1" id="ctl00_mainPanel_GV4" style="border-collapse:collapse;">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>No Record Found!</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#absent_emp_id" class="collapsed" aria-expanded="false">TEXT---</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="absent_emp_id" class="panel-collapse collapse" aria-expanded="false">
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <br>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-4" style="float: right">
+
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon">
+                                                                            <i class="fa fa-search"></i>
+                                                                        </div>
+                                                                        <input name="ctl00$mainPanel$txt_search_Absent" type="text" id="ctl00_mainPanel_txt_search_Absent" class="form-control" placeholder="Search.." onkeyup="Search_Gridview_3(this)">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+                                                                    <div id="ctl00_mainPanel_pnl_db_2">
+
+                                                                        <div id="ctl00_mainPanel_Panel2" class="panel panel-border" style="height:300px;overflow:auto;">
+
+                                                                            <div>
+                                                                                <table class="table table-striped table-bordered table-hover table-condensed" cellspacing="0" rules="all" border="1" id="ctl00_mainPanel_GV3" style="border-collapse:collapse;">
+                                                                                  <tbody>
+                                                                                      <tr>
+                                                                                          <th>Usman</th>                                                                                      </tr>
+                                                                                  </tbody>
+                                                                                </table>
+                                                                            </div>
+
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="box">
+                                            <div class="form-horizontal">
+                                                <div class="box-body">
+                                                    <div class="container">
+                                                        <div class="row">
+
+                                                            <div class="callout callout-warning">
+                                                                <h4>Birthday(@Model.employeedata.Count())<span id="ctl00_mainPanel_spn_Birthday_Count" class="text-right"></span></h4>
+                                                                <p style="font-size:15px">
+                                                                    buddies
+                                                                </p>
+                                                            </div>
+                                                            <div id="dv_birthday">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div id="ctl00_mainPanel_Panel8" class="panel panel-border" style="height:250px;overflow:auto;">
+
+                                                                            <div class="col-md-6 row ">
+
+
+                                                                                @foreach (var emp in Model.employeedata)
+                                                                                {
+                                                                                    <div class="card">
+                                                                                        <h4 class=" text-center" tooltip="Employee Name"> @Html.DisplayFor(model => emp.EmolyeeName)</h4>
+                                                                                        <p class="text-muted text-center" tooltip="Employee Name" style="font-size:12px !important"> @Html.DisplayFor(model => emp.DepartmentName)</p>
+                                                                                        <p class="text-muted text-center" tooltip="Employee Name" style="font-size:12px; font-weight:600;"> @Html.DisplayFor(model => emp.BranchName) </p>
+                                                                                    </div>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div style="display:none">
+                                                                            <div id="ctl00_mainPanel_Panel5" class="panel panel-border" style="height:250px;overflow:auto;">
+
+                                                                                <div>
+                                                                                    <table class="table table-hover" cellspacing="0" rules="all" border="1" id="ctl00_mainPanel_Gv_Birthday" style="border-collapse:collapse;">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td>No Records Found</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+
+
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box">
+
+                                            <div class="form-horizontal">
+                                                <div class="box-body">
+                                                    <div class="container">
+                                                        <div class="row">
+
+                                                            <div class="callout callout-success">
+                                                                <h4>New Hires <span id="ctl00_mainPanel_spn_Joinees_Count" class="text-right">(@Model.employeeHires.Count())</span></h4>
+                                                                <p style="font-size:15px">
+                                                                    New Joinees in past 15 days.
+                                                                </p>
+                                                            </div>
+                                                            <div id="dv_NewHires">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div id="ctl00_mainPanel_Panel7" class="panel panel-border" style="height:250px;overflow:auto;">
+                                                                            <div class="col-md-6">
+                                                                                <div class="card">
+                                                                                        @foreach (var emp in Model.employeeHires)
+                                                                                        {
+                                                                                            <div class="col-md-6 card">
+                                                                                                <h4 class=" text-center" tooltip="Employee Name"> @Html.DisplayFor(model => emp.EmolyeeName)</h4>
+                                                                                                <p class="text-muted text-center" tooltip="Department Name" style="font-size:12px !important">@Html.DisplayFor(model => emp.DepartmentName)</p>
+                                                                                                <p class="text-muted text-center" tooltip="Branch Name" style="font-size:12px; font-weight:600;">@Html.DisplayFor(model => emp.BranchName) </p>
+                                                                                            </div>
+                                                                                        }
+                                                                                   </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div style="display: none">
+                                                                            <div id="ctl00_mainPanel_Panel6" class="panel panel-border" style="height:250px;overflow:auto;">
+
+                                                                                <div>
+                                                                                    <table class="table table-hover" cellspacing="0" rules="all" border="1" id="ctl00_mainPanel_Gv_NewJoinees" style="border-collapse:collapse;">
+                                                                                        <tbody>
+                                                                                            <tr style="color:White;background-color:CornflowerBlue;border-color:Silver;">
+                                                                                                <th scope="col">Branch</th>
+                                                                                                <th scope="col">Employee</th>
+                                                                                                <th scope="col">Designation</th>
+                                                                                            </tr>
+                                                                                            <tr style="background-color:White;border-color:Silver;">
+                                                                                                <td>SY OFFICE AUTOMATION PVT LTD </td>
+                                                                                                <td>TEST</td>
+                                                                                                <td>Accounts Officer</td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+
+
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+﻿@model EmployeeManage.ViewModels.Request.BarcodeRequest
+
+@{
+    ViewData["Title"] = "Barcode Generation Page";
+}
+
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+<div class="card">
+
+    <div class="card-body">
+        <div class="form-group row">
+
+            <div class="col-md-4">
+                <label class="col-sm-3 form-label">ItemGroup</label>
+                <select class="form-control select2 " id="itemGrouplist" name="itemGrouplist" onchange="getitems(this.value)" required></select>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+
+            <div class="col-md-4">
+                <label class="col-sm-3 form-label">Item</label>
+                <select class="form-control select2" asp-for="ItemId" id="ItemsDropdown" name="ItemsDropdown" required></select>
+            </div>
+        </div>
+
+        <div class="col-md-3 float-right">
+            <button type="button" onclick="Generate()" class="btn btn-block bg-gradient-success btn-lg">
+                <i class="fas fa-save"></i> Generate
+            </button>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade show" id="errorModal" style="display: none; padding-right: 15px;" aria-modal="true" role="dialog" ">
+        <div class="modal-dialog">
+            <div id="classchange" class="modal-content bg-success">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+                <div class="modal-body">
+                    <p id="errormodalPara"></p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+            <!-- /.modal-content -->
+    </div>
+        <!-- /.modal-dialog -->
+</div>
+<br />
+<script type="text/javascript">
+
+    window.onload = pageLoad();
+
+    function pageLoad() {
+
+        setTimeout(function () {
+        
+            getitemsGroup();
+     
+        }, 0001);
+    }
+
+    function Generate() {
+        var itemid = document.getElementById("ItemsDropdown").value;
+            $.ajax({
+                type: "POST",
+                 url: '@Url.Action("BarcodeIndex", "Barcode")',
+                data: { id: itemid },
+                dataType: 'json',
+                success: function (response) {
+                    if ($.trim(response) === 'false') {
+                        $('#errorModal').modal('show');
+                        document.getElementById("errormodalPara").innerHTML = "Barcode Already Generated!!!";
+                        document.getElementById("classchange").className = "modal-content bg-danger";
+                    }
+                    else {
+                        $('#errorModal').modal('show');
+                        document.getElementById("errormodalPara").innerHTML = "Barcode Generated!!!";
+                        document.getElementById("classchange").className = "modal-content bg-success";
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+
+
+    function getitems(value) {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getitemsData", "Promotion")',
+                data: { id: value },
+                dataType: 'json',
+                success: function (response) {
+
+                    var list = '<option value="-1">Please Select Item</option>';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].itemId + '">' + response[i].itemName + '</option>';
+                    }
+                    $("#ItemsDropdown").html(list);
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function getitemsGroup()
+        {
+            $.ajax({
+                type: "Get",
+                url:   '@Url.Action("getitemsGroupData", "Purchase")',
+                dataType: 'json',
+                success: function (response) {
+                    var list = '';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].value + '">' + response[i].text+ '</option>';
+                    }
+                    $("#itemGrouplist").html(list);
+
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+</script>

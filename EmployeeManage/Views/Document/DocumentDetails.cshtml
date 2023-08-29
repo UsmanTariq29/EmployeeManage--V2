@@ -1,0 +1,90 @@
+﻿@model EmployeeManage.ViewModels.Responses.EmployeesDocumentInfo
+@{
+    ViewBag.Title = "Document Details ";
+}
+<body>
+    <div class="card">
+
+        <div class="card-header">
+            <h3 class="box-title"> Document details</h3>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="Document" asp-action="InsertDocument" method="post" class="m-3">
+                <div class="form-group row">
+                    <label asp-for="DepartmentList" class="col-sm-2 form-label">DepartmentName</label>
+                    <div class="col-md-5">
+                        @Html.DropDownList("DepartmentId", Model.DepartmentList as SelectList, new { @class = "form-control select2 ", id = "DepartList", onchange = "jsFunction(this.value);" })
+                        @Html.ValidationMessageFor(x => x.DepartmentList, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="EmployeeActiveList" class="col-sm-2 form-label">Employee</label>
+                    <div class="col-md-5">
+                        @Html.DropDownList("EmployeeId", Model.EmployeeActiveList as SelectList, new { @class = "form-control select2 ", id = "EmpList", onchange = "jsfuntable(this.value);" })
+                        @Html.ValidationMessageFor(x => x.EmployeeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th style="font-weight:700"><label>Document Name</label></th>
+                        </tr>
+                    </thead>
+                    <tbody id="RemarksID">
+                    </tbody>
+                </table>
+
+
+
+                <div asp-validation-summary="All"></div>
+
+            </form>
+        </div>
+
+    </div>
+
+    @section Scripts{
+        <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var filename = $(this).val().split("\\").pop();
+                        $(this).next('.custom-file-label').html(filename);
+                    });
+                });
+                    function jsFunction(value) {
+                        var a = value;
+                        var url = '@Url.Action("getemplList", "Document")';
+                        var data = { id: a };
+                        dataType: "json";
+                        contentType: "application/json; charset=utf-8";
+                        $.post(url, data, function (result) {
+                            //  do something with the response from the controller action
+                            var s = '<option value="-1"></option>';
+                            for (var i = 0; i < result.length; i++) {
+                                s += '<option value="' + result[i].value + '">' + result[i].text + '</option>';
+                            }
+                            $("#EmpList").html(s) ;
+                        });
+                }
+                    function jsfuntable(value) {
+                        var a = value;
+                        var url = '@Url.Action("getRemarksAndPath", "Document")';
+                        var data = { DepartID: a };
+                        dataType: "json";
+                        contentType: "application/json; charset=utf-8";
+                        $.post(url, data, function (result) {
+                            //  do something with the response from the controller action
+                            var s = '<table>';
+                            for (var i = 0; i < result.length; i++) {
+                                s += '<tr><td>' + result[i].remarks + '</td><td><a href="/Document/DownloadDocument/' + result[i].documentId + '"  class="btn btn-primary m-1">Download </a>  </td>';
+                            }
+                            s += '</tr></table>';
+                            $("#RemarksID").html(s);
+                        });
+                    }
+        </script>
+    }
+
+</body>

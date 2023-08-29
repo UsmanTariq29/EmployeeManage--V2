@@ -1,0 +1,44 @@
+﻿@model EmployeeManage.ViewModels.Request.AdditemsPriceRequestVM
+@{
+    ViewBag.Title = "Item Price Definition";
+
+}
+
+<body>
+    <div class="card">
+    <div class="card-header">
+
+        <h3 class="box-title">Add Items Price</h3>
+    </div>
+
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="ItemsGroup" asp-action="AddItemsPrice" method="post">
+                @if (TempData["Success"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                }
+                <div class="form-group row">
+
+                    <label asp-for="ItemId" class="col-sm-2 form-label">Items</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("ItemId", Model.ItemsList as SelectList, new { @class = "form-control select2 ", id = "itemlist" })
+                        @Html.ValidationMessageFor(x => x.ItemId, "", new { @class = "text-danger" })
+                        <span asp-validation-for="ItemId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemsPrice" class="col-sm-2 form-label">Price</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemsPrice" type="text" class="form-control" placeholder="Price" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-md-right">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <div asp-validation-summary="All"></div>
+            </form>
+        </div>
+    </div>
+
+</body>

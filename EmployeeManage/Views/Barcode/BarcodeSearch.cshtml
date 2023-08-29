@@ -1,0 +1,457 @@
+﻿
+<body>
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="box-title">Sale Invoice</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="txtBarcode" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button id="searchbtn" type="button" class="btn btn-info btn-flat" onclick="searchBarcode()"> Add</button>
+                            </span>
+                        </div>
+                        <table class="table table-bordered table-hover table-responsive ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sr.
+                                    </th>
+                                    <th style="display: none;">
+                                        ItemId
+                                    </th>
+                                    <th style="width:250px; text-align:left">
+                                        Name
+                                    </th>
+                                    <th style="display: none">
+                                        Barcode
+                                    </th>
+                                    <th style="width: 100px; text-align: center">
+                                        Qty
+                                    </th>
+                                    <th style="width: 120px; text-align: center ">
+                                        Price
+                                    </th>
+                                    <th style="width: 150px; text-align: center ">
+                                        Amount
+                                    </th>
+                                    <th style="width: 150px; text-align: center ">
+                                        Tax
+                                    </th>
+                                    <th style="width: 150px; text-align: center ">
+                                        Discount
+                                    </th>
+                                    <th style="width: 150px; text-align: center ">
+                                        Total
+                                    </th>
+                                    <th style="width:100px">
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="pre-scrollable">
+                            <table id="itemTable" class="table table-bordered">
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 bg-cyan">
+                        <div class="row ">
+
+                            <div class="col-md-5"><h4 id="lbl_customerId"></h4></div>
+                            <div class="col-md-5"><h4 id="lbl_customerName"></h4></div>
+                            <div class="col-md-1">-</div>
+                            <div class="col-md-5 text-right"><h4 id="lbl_customerPhoneNo"></h4></div>
+                        </div>
+                        <label id="lbl_items" style="display:none"></label>
+                        <hr />
+                        <div class="row  ">
+                            <div class="col-md-11 text-center ">
+                                <h3 id="dateid" style="display:none"></h3>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row ">
+                            <div class="col-md-5"><label>Gross Amount</label></div>
+                            <div class="col-md-1">-</div>
+                            <div class="col-md-5 text-right"><label id="lbl_SubTotal">0.0000</label></div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-5"><label>Discount</label></div>
+                            <div class="col-md-1">-</div>
+                            <div class="col-md-5 text-right"><label id="lbl_Discount">0.0000</label></div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-5"><label>Tax Amount</label></div>
+                            <div class="col-md-1">-</div>
+                            <div class="col-md-5 text-right"><label id="lbl_TaxAmount">0.0000</label></div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-5"><label>Points Earn</label></div>
+                            <div class="col-md-1">-</div>
+                            <div class="col-md-5 text-right"><label id="lbl_pointsEarn">0.0000</label></div>
+                        </div>
+                        <hr>
+                        <div class="row ">
+                            <div class="col-md-6"><h4>Net Amount</h4></div>
+                            <div class="col-md-1">-</div>
+                            <div class="col-md-5 text-right"><h4 id="lbl_TotalAmount">0.0000</h4></div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-7"><h4>Payment Mode</h4></div>
+                        </div>
+                        <div class="row checkbox">
+                            <div class="col-md-3">
+                                <label>
+                                    <input type="checkbox" id="c1" value="cash" name="check" checked onclick="checkbox(this)">Cash
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>
+                                    <input type="checkbox" id="c2" name="check" value="cashcard" onclick="checkbox(this)">Cash & Card
+                                </label>
+                            </div>
+                            <div class="col-md-5">
+                                <label><input type="checkbox" id="c3" name="check" value="debitcreditcard" onclick="checkbox(this)">Debit/Credit Card</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7 text-bold"><h4>Cash Amount</h4></div>
+                            <div class="col-md-5 text-right"><input type="text" class="form-control form-control-sm" style="color:black; text-align:right " name="cashamont" id="lbl_CashAmount" value="0.0000" onkeypress="return onlyNumberKey(event)" onkeyup="Balancecalculate()" required /></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5"><h3>Balance</h3></div>
+                            <div class="col-md-1"><h3>-</h3></div>
+                            <div class="col-md-5 text-right"><h3 id="lbl_balance">0.0000</h3></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                
+                    <div class="col-md-1">
+                        <a class="btn btn-app" onclick="FormValidation()"style="background-color: #17a2b8">
+                            <i class="fa fa-save"></i>Save
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-app" data-toggle="modal"style="background-color: #17a2b8" data-target="#modal-info">
+                            <i class="fa fa-user"></i>Customer
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-app"style="background-color: #17a2b8">
+                            <i class="fa fa-plus-circle"></i> New
+                        </a>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-app" style="background-color: #17a2b8" onclick="HoldOrderItemsCheck()">
+                            <i class="fa fa-pause"></i> Hold Order
+                        </a>
+                    </div>
+                <div class="col-md-1">
+                    <a class="btn btn-app" data-toggle="modal" style="background-color: #17a2b8" data-target="#modal-unhold">
+                        <i class="fa fa-play"></i>UnHold
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.modal -->
+
+    <div class="modal modal-info fade bg-cyan" id="modal-info">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Customer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" id="customerName" required class="form-control">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label> phone Number:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            </div>
+                            <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="" inputmode="text">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label>NTN:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-file-invoice-dollar"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="Ntn">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group">
+                        <label> CNIC:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="Cnic">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="closeButton" class="btn btn-outline margin-right-top pull-right" data-dismiss="modal">Close</button>
+                        <button type="button" id="savecustomerbutton" class="btn btn-outline" onclick="SaveCustomerData()">Save</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    </div>
+
+    <div class="modal modal-info fade" id="modal-unhold">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Get Order</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>HOLD ID:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <input type="text" id="OrderHoldId" required class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="closeOrderButton" class="btn btn-outline margin-right-top pull-right" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline" onclick="getHoldOrderData()">Search</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    </div>
+
+    <div class="modal modal-success fade" id="modal-HoldSuccessFully" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Success!!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Order Hold Successfully…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-danger fade" id="Modal-Cash" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please Enter Valid Amount!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-danger fade" id="Modal-checkbox" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please Select Cash First!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-danger fade" id="Modal-SelectCheckbox" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please Select Any Box First!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-success fade" id="Modal-customer-Save" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Customer Saved!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-danger fade" id="Modal-ItemSelection" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please Select Items First....</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+   
+    <div class="modal modal-success fade" id="Modal-order-Save" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Success!!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Order Save Successfully…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-warning fade" id="modal-Notfound" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Warning!!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Product Not Found…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-warning fade" id="modal-ordernotfound" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Warning!!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Order Not Found…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <script type="text/javascript" src="~/js/pages/barcode.js"></script>
+
+</body>

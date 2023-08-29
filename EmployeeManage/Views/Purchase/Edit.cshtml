@@ -1,0 +1,47 @@
+﻿@model EmployeeManage.ViewModels.Request.purchaseRequest
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Update Page</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Create Employee</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="Purchase" asp-action="update" method="post" class="m-3">
+                @Html.HiddenFor(model => model.SupplierId)
+
+                <div class="form-group row">
+                    <label asp-for="SupplierId" class="col-sm-2 form-label">Name</label>
+                    <div class="col-md-8">
+                        <input asp-for="SupplierId" type="text" class="form-control" />
+                        <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    </div>
+                </div>
+            
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary m-1">Cancel </a>
+                </div>
+
+                <div asp-validation-summary="All"></div>
+
+            </form>
+        </div>
+    </div>
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var filename = $(this).val().split("\\").pop();
+                    $(this).next('custom-file-label').html(filename);
+                });
+            });
+        </script>
+    }
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EmployeeManage.ViewModels.Responses.RegionCountryCityInfo>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>CountryRegionCity Page</title>
+</head>
+<body>
+    <h2>Region TotalCount:@Model.Select(r => r.RegionCount).FirstOrDefault()</h2>
+    <h2>Region:@Model.Select(r => r.RegionId).Distinct().Count()</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.RegionId)</th>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.RegionName)</th>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.CountryId)</th>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.CountryName)</th>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.CityId)</th>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.CityName)</th>
+                <th style="font-weight:700">@Html.DisplayNameFor(model => model.RegionCount)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => emp.RegionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => emp.RegionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => emp.CountryId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => emp.CountryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => emp.CityId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => emp.CityName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => emp.RegionCount)
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</body>
+</html>

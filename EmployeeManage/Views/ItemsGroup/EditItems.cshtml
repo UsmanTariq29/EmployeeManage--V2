@@ -1,0 +1,132 @@
+﻿@model EmployeeManage.ViewModels.Responses.ItemsDataListsResponseVM
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Items Page</title>
+</head>
+
+<body>
+    <div class="card">
+    <div class="card-header">
+        <h3 class="box-title">Edit Items</h3>
+    </div>
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="ItemsGroup" asp-action="update" method="post" class="m-3">
+                @Html.HiddenFor(model => model.ItemId)
+
+                <div class="form-group row">
+                    <label asp-for="ItemId" class="col-sm-2 form-label">Item</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("ItemId", Model.ItemsList as SelectList, new { @class = "form-control select2  " })
+                        @Html.ValidationMessageFor(x => x.ItemId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemGroupId" class="col-sm-2 form-label">Group</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("ItemGroupId", Model.GroupList as SelectList, new { @class = "form-control select2  " })
+                        @Html.ValidationMessageFor(x => x.ItemGroupId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label asp-for="PriceId" class="col-sm-2 form-label">Price</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemsPrice" type="number" class="form-control" />
+                        <span asp-validation-for="ItemsPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemCode" class="col-sm-2 form-label">Code</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemCode" type="text" class="form-control" placeholder="Item Code" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemName" class="col-sm-2 form-label">Name</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemName" type="text" class="form-control" placeholder="Item Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemReOrder" class="col-sm-2 form-label">ReorderLevel</label>
+                    <div class="col-md-2">
+                        <input asp-for="ItemReOrder" type="number" class="form-control" placeholder="Reorder Quantity" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="UnitInCase" class="col-sm-2 form-label">UOM</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("UnitInCase", Model.UOMList as SelectList, new { @class = "form-control select2 ", id = "DepartList" })
+                        @Html.ValidationMessageFor(x => x.UnitInCase, "", new { @class = "text-danger" })
+                        <span asp-validation-for="UnitInCase" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="TaxId" class="col-sm-2 form-label">Tax</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("TaxId", Model.taxList as SelectList, new { @class = "form-control select2 ", id = "TaxList" })
+                        @Html.ValidationMessageFor(x => x.TaxId, "", new { @class = "text-danger" })
+                        <span asp-validation-for="TaxId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsActive" type="checkbox">
+                            IsActive
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsBatchItem" type="checkbox">
+                            IS BatchItem
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsExpiryAllowed" type="checkbox">
+                            Expiry Allowed
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsRepalaceable" type="checkbox">
+                            IsReplaceable
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsExempted" type="checkbox">
+                            Exempted
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <button type="submit" class="btn btn-primary float-md-right">
+                        <i class="fas fa-upload"></i> Update
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <a asp-controller="ItemsGroup" asp-action="AllItems" class="btn btn-primary float-md-right">
+                        Cancel
+                    </a>
+                </div>
+                <div asp-validation-summary="All"></div>
+            </form>
+        </div>
+        @section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var filename = $(this).val().split("\\").pop();
+                        $(this).next('custom-file-label').html(filename);
+                    });
+                });
+            </script>
+        }
+    </div>
+</body>
+</html>

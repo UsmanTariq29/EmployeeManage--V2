@@ -1,0 +1,42 @@
+﻿@model EmployeeManage.ViewModels.Request.AddTaxRequestVM
+@{
+    ViewBag.Title = "Item Tax Definition";
+
+}
+
+<body>
+    <div class="card">
+        <div class="card-header">
+        <h3 class="box-title">Add Tax</h3>
+    </div>
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="ItemsGroup" asp-action="AddItemTax" method="post">
+                @if (TempData["Success"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                }
+                <div class="form-group row">
+                    <label asp-for="Name" class="col-sm-2 form-label">Name</label>
+                    <div class="col-md-4">
+                        <input asp-for="Name" type="text" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Percentage" class="col-sm-2 form-label">Percent</label>
+                    <div class="col-md-4">
+                        <input asp-for="Percentage" type="text" class="form-control" placeholder="Price" required>
+                        <span asp-validation-for="Percentage" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary float-md-right">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <div asp-validation-summary="All"></div>
+            </form>
+        </div>
+    </div>
+
+</body>

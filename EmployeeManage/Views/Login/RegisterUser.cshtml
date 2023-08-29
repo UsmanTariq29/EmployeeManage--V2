@@ -1,0 +1,55 @@
+﻿@using EmployeeManage.Models;
+@using Microsoft.AspNetCore.Identity
+@using EmployeeManage.ViewModels.Request;
+@model RegisterUserRequestVM
+@inject SignInManager<CustomRegisterUser> SignInManager
+@inject UserManager<CustomRegisterUser> UserManager
+
+
+ 
+
+@{
+    ViewBag.Title = "UserRegister Page";
+}
+
+
+<h1>Registeration</h1>
+<div class="row">
+
+
+<div class="col-md-12">
+
+<form method="post">
+    
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+             <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+      </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserGUID"></label>
+                <input asp-for="UserGUID" class="form-control" />
+                <span asp-validation-for="UserGUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BranchGUID"></label>
+                <input asp-for="BranchGUID" class="form-control" />
+                <span asp-validation-for="BranchGUID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyGUID"></label>
+                <input asp-for="CompanyGUID" class="form-control" />
+                <span asp-validation-for="CompanyGUID" class="text-danger"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+    </div>
+</div>

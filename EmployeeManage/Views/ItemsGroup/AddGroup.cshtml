@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpcontextAccessor
+@model EmployeeManage.ViewModels.Request.Item_GroupRequest
+
+@{
+    ViewBag.Title = "Add Group";
+}
+
+<body>
+    <div class="card">
+    <div class="card-header">
+        <h3 class="box-title">Add Group</h3>
+    </div>
+
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="ItemsGroup" asp-action="AddGroup" method="post" class="m-3">
+                @if (TempData["Success"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                }
+                <div class="form-group row">
+                    <label asp-for="ItemGroupName" class="col-sm-2 form-label">Group Name</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemGroupName" type="text" class="form-control" required placeholder="Enter Group Name">
+                        @Html.ValidationMessageFor(m => m.ItemGroupName, ""/* or null or what you want the error message to be */, new { @class = "text-danger" })
+
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-md-right">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </form>
+        </div>
+    </div>
+ 
+
+    
+</body>

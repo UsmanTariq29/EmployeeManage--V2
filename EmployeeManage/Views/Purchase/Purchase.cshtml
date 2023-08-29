@@ -1,0 +1,1030 @@
+﻿
+@{
+    ViewBag.Title = "Purchase Definition";
+
+}
+
+<body>
+
+    <button type="button" class="btn btn-success" onclick="openList()">
+        Purchase List
+    </button>
+            
+            <label id="hiddenMasterId" style="visibility:hidden" ></label>
+            
+
+    <section class="content-header">
+        <div class="box-header">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Purchase</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Purchase</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <form>
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row ">
+                            <label class="col-sm-2 form-label">Supplier</label>
+                            <div class="col-md-8">
+                                <select class="form-control select2 select2-hidden-accessible" required id="Supplierlist"
+                                name="Supplierlist" aria-hidden="true"></select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group row ">
+                            <label class="col-sm-2 form-label">InvoiceNo</label>
+                            <div class="col-md-8">
+                                <input type="text" id="txt_InvoiceNo" class="form-control" placeholder="InvoiceNo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row ">
+                            <label class="col-sm-2 form-label">Description</label>
+                            <div class="col-md-8">
+                                <textarea class="form-control" id="masterDescription" rows="3" placeholder="Enter Description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-sm-3 form-label">ItemGroup</label>
+                        <select class="form-control select2 " id="itemGrouplist" name="itemGrouplist" onchange="getitemsData(this.value)" required></select>
+
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-sm-3 form-label">Item</label>
+                        <select class="form-control select2 " id="ItemsDropdown" name="ItemsDropdown" onchange="getselecteditemData(this.value)" required></select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-sm-3 form-label">Description</label>
+                        <input type="text" id="inpt_DetailDescription" class="form-control" placeholder="Item Description">
+                    </div>
+                </div>
+                <br />
+                
+                
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Quantity</label>
+                        <input type="text" id="txt_Quantity" class="form-control" onkeypress="return onlyNumber(event)" placeholder="Item Quantity" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Price</label>
+                        <input type="text" class="form-control" id="txt_Price" onkeypress="return onlyNumber(event)" onchange="calculation(this.value)" placeholder="Item Price" required>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Amount</label>
+                        <input type="text" id="txt_Amount" class="form-control" disabled>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Discount (%)</label>
+                        <input type="text" id="txt_DiscountPercentage" value="0" onkeyup="CalculateFixedDiscount()"
+                               onkeypress="return onlyNumber(event)" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Fixed Discount</label>
+                        <input type="text" id="txt_FixedDiscount" value="0" onkeyup="CalculateDiscountPercent()" onkeypress="return onlyNumber(event)" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Amount (Dis)</label>
+                        <input type="text" value="0" disabled id="txt_AmountAfterDiscount" class="form-control">
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="col-sm-3 form-label">Tax</label>
+                        <select class="form-control select2 " id="drp_Tax" name="drp_Tax" onchange="getTax(this.value)"></select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Tax Percent</label>
+                        <input type="text" value="0" disabled id="txt_percentAge" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Tax Amount</label>
+                        <input type="text" value="0" disabled id="txt_taxAmount" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-sm-12 form-label">Net Amount</label>
+                        <input type="text" value="0" disabled id="txt_netAmount" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <div class="col-md-3 float-right">
+                <button type="button" class="btn btn-block bg-gradient-success btn-lg" onclick="createTable()">
+                    <i class="fas fa-plus-square"></i>Add</button>
+            </div>
+            <br />
+            <br />
+            <br />
+        </div>
+
+
+        <div class="box box-default">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-default">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class=" panel panel-default">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Purchased Items List</h3>
+
+                                                    <div class="card-tools">
+                                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                                            <input name="ctl00$mainPanel$txt_search_doc_exp" type="text" id="ctl00_mainPanel_txt_search_doc_exp" class="form-control float-right" placeholder="Search.." onkeyup="Search_Gridview(this)">
+                                                            <div class="input-group-append">
+                                                                <button type="button" class="btn btn-default">
+                                                                    <i class="fas fa-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-header -->
+
+                                                <div class="card-body table-responsive p-0">
+                                                    <table class="table table-hover text-nowrap">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Sr.
+                                                                </th>
+                                                                <th>
+                                                                    Item Name
+                                                                </th>
+                                                                <th>
+                                                                    Quantity
+                                                                </th>
+                                                                <th style="text-align:center">
+                                                                    Price
+                                                                </th>
+                                                                <th style="text-align:center">
+                                                                    Amount
+                                                                </th>
+                                                                <th style="text-align:center; font-weight:700">
+                                                                    Discount(%)
+                                                                </th>
+                                                                <th style="text-align:center">
+                                                                    Tax
+                                                                </th>
+                                                                <th style="text-align:center">
+                                                                    Description
+                                                                </th>
+                                                                <th>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="PurchasedItems">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <!-- /.card -->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="col-sm-5 form-label">  GrossAmount</label>
+                                            <input type="text" id="txt_GrossAmount" class="form-control" disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-sm-5 form-label">  TotalDiscount</label>
+                                            <input type="text" id="txt_TotalDiscount" class="form-control" disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-sm-5 form-label">  TotalTax</label>
+                                            <input type="text" id="txt_TotalTax" class="form-control" disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-sm-5 form-label">  NetAmount</label>
+                                            <input type="text" id="lbl_TotalAmount" class="form-control" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <br />
+        <br />
+        <div class="col-md-3 float-right">
+            <button type="button" class="btn btn-block bg-gradient-success btn-lg" onclick="saveData()">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+        <div asp-validation-summary="All"></div>
+    </form>
+
+    <div class="modal modal-success fade" id="modalpurchaseSuccess" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Purchased Successfully!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+  
+    <div class="modal modal-success fade " id="modalAllPurchase" style="display: none; ">
+        <div class="modal-dialog" style="max-width:800px !important">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 style="align-content:center">Purchase List</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <section class="content">
+                        <!-- /.box -->
+                        <!-- /.box-header -->
+                        <div class="card-body">
+                            <div class="card-tools" style="float:right;margin-right:80px">
+                                <div class="input-group input-group-sm " style="width:350px !important;">
+                                    <input name="ctl00$mainPanel$txt_search_doc_exp" type="text" id="ctl00_mainPanel_txt_search_doc_exp" class="form-control float-right" placeholder="Search.." onkeyup="Search_table(this)">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card-body" style="overflow-x:auto;height:300px;width:700px   !important">
+                                <table id="example2" class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>SupplierID</th>
+                                            <th>SupplierName</th>
+                                            <th>Date</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="itemTablebody" style="width:auto">
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-danger fade" id="errorModal" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="errormodalPara"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <script type="text/javascript">
+
+        window.onload = pageLoad();
+
+
+        function pageLoad() {
+
+            setTimeout(function () {
+                getSupplierData();
+
+                getitemsGroupData();
+
+                getTaxData();
+
+            }, 0001);
+
+
+        }
+               function openList() {
+            $.ajax({
+                type: "Get",
+                url: "GetPurchases",
+                dataType: 'json',
+                success: function (response) {
+                    var data = JSON.stringify(response);
+
+                    for (i = 0; i < response.length; i++) {
+
+                        CreateModalTable(response[i].purchaseMasterId, response[i].supplierName, response[i].dateCreated, response[i].invoiceNo);
+                    }
+                    $('#modalAllPurchase').modal('show');
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function editPurchase(MasterPurchaseId) {
+            $.ajax({
+                type: "Get",
+                url: "Edit",
+                data: { id: MasterPurchaseId },
+                dataType: 'json',
+                success: function (response) {
+
+                    document.getElementById("txt_InvoiceNo").value = response[0].invoiceNo;                    
+                    $("#Supplierlist").val(response[0].supplierId).change();
+                    document.getElementById("masterDescription").innerHTML = response[0].masterDescription;
+                    
+                    document.getElementById("hiddenMasterId").innerHTML = MasterPurchaseId;
+                    
+                    for (i = 0; i < response.length; i++) {                    
+                        createTableFromUpdate(response[i].itemId, response[i].itemName, response[i].quantity,
+                            response[i].price, response[i].discountPercentage, response[i].totalTax,response[i].detailDescription,
+                            response[i].fixedDiscount,response[i].amountAfterDiscount,response[i].itemTaxId,response[i].itemGroupId);
+                    }
+                    $('#modalAllPurchase').modal('hide');
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+        function CreateModalTable(purchaseMasterID, supplierName, Date, InvoiceNo) {
+            // creates a <table> element and a <tbody> element
+
+            var tbl = document.getElementById("itemTablebody");
+            // creates a table row
+            var row = document.createElement("tr");
+
+            var masterId = document.createElement("td");
+            var SupplierName = document.createElement("td");
+            var creationDate= document.createElement("td");
+            var edit= document.createElement("td");
+
+            masterId.setAttribute("align", "center");
+            //masterId.setAttribute("width", "50px");
+            //SupplierName.style.width = "150px";
+            SupplierName.setAttribute("align", "left");
+            // creationDate.setAttribute("align", "right");
+            //creationDate.setAttribute("width", "100px");
+            //edit.setAttribute("align", "right");
+            //edit.setAttribute("width", "90px");
+
+            masterId.innerHTML = purchaseMasterID;
+            SupplierName.innerHTML = supplierName;
+            creationDate.innerHTML = Date;
+
+            edit.innerHTML = "<a  onclick='editPurchase(" + purchaseMasterID +  ")' class='fa fa-edit col-md-2'></a>";
+
+
+            row.appendChild(masterId);
+            row.appendChild(SupplierName);
+            row.appendChild(creationDate);
+            row.appendChild(edit);
+            tbl.appendChild(row);
+         
+            $('#PurchasedItems').empty();
+        }
+
+        function clearinputFields() {
+            document.getElementById("txt_Quantity").value = 0;
+            document.getElementById("txt_Price").value = 0;
+            document.getElementById("txt_Amount").value = 0
+            document.getElementById("txt_DiscountPercentage").value = 0;
+            document.getElementById("txt_FixedDiscount").value = 0;
+            document.getElementById("txt_taxAmount").value = 0;
+            document.getElementById("txt_netAmount").value = 0;
+            document.getElementById("txt_AmountAfterDiscount").value = 0;
+            document.getElementById("txt_percentAge").value = 0;
+        }
+
+        function calculation() {
+
+            var quantity = document.getElementById("txt_Quantity").value;
+
+            var price = document.getElementById("txt_Price").value;
+            if (quantity != 0) {
+
+                document.getElementById("txt_Amount").value = quantity * price
+            }
+        }
+
+        function CalculateFixedDiscount() {
+            var discountPercentage = document.getElementById("txt_DiscountPercentage").value;
+            var amount = document.getElementById("txt_Amount").value;
+            var fixedDiscount = 0;
+
+            if (amount !== 0) {
+                if (discountPercentage !== 0) {
+                    fixedDiscount = (discountPercentage * amount) / 100;
+                }
+            }
+
+            document.getElementById("txt_FixedDiscount").value = fixedDiscount;
+            document.getElementById("txt_DiscountPercentage").value = discountPercentage;
+            document.getElementById("txt_AmountAfterDiscount").value = (amount - fixedDiscount);
+            calculateTax();
+        }
+
+        function CalculateDiscountPercent() {
+            var fixedDiscount = document.getElementById("txt_FixedDiscount").value;
+            var amount = document.getElementById("txt_Amount").value;
+            var discountPercentage = 0;
+
+            if (amount !== 0) {
+                if (fixedDiscount !== 0) {
+                    discountPercentage = (fixedDiscount * 100) / amount;
+
+                }
+            }
+
+            document.getElementById("txt_FixedDiscount").value = fixedDiscount;
+            document.getElementById("txt_DiscountPercentage").value = discountPercentage;
+            document.getElementById("txt_AmountAfterDiscount").value = (amount - fixedDiscount);
+            calculateTax();
+        }
+
+        function onlyNumber(evt) {
+
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+
+                if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function validate(id) {
+
+            var tbl = document.getElementById("PurchasedItems");
+
+            for (var r = 0, n = tbl.rows.length; r < n; r++) {
+
+                if (id == parseFloat(tbl.rows[r].cells[1].innerHTML)) {
+                    $('#errorModal').modal('show');
+                    document.getElementById("errormodalPara").innerHTML = "Items Already Exists!!!";
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        function CheckEmpty(quantity) {
+
+                if (quantity == 0 ) {
+                    $('#errorModal').modal('show');
+                    document.getElementById("errormodalPara").innerHTML = "Empty Record!!!";
+                    return false;
+
+            }
+            return true;
+        }
+
+        function calculateAmount(value) {
+            var taxAmount = 0;
+            var netAmount = 0;
+            var grossAmount = 0;
+            var discount = 0;
+
+            for (var r = 0, n = value.rows.length; r < n; r++) {
+                taxAmount = taxAmount + parseFloat(value.rows[r].cells[9].innerHTML);
+                grossAmount = grossAmount + (parseFloat(value.rows[r].cells[5].innerHTML));
+                discount = discount + (parseFloat(value.rows[r].cells[6].innerHTML));
+                netAmount = (netAmount + (parseFloat(value.rows[r].cells[5].innerHTML) + parseFloat(value.rows[r].cells[9].innerHTML)) - parseFloat(value.rows[r].cells[6].innerHTML));
+            }
+            document.getElementById('txt_GrossAmount').value = grossAmount.toFixed(4);
+            document.getElementById("txt_TotalDiscount").value = discount.toFixed(4);
+            document.getElementById("txt_TotalTax").value = taxAmount.toFixed(4);
+            document.getElementById("lbl_TotalAmount").value = netAmount.toFixed(4);
+        }
+        function getTaxData() {
+            $.ajax({
+                type: "Get",
+                url:   '@Url.Action("getTaxData", "Purchase")',
+                dataType: 'json',
+                success: function (response) {
+
+                    var list = '';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].value + '">' + response[i].text + '</option>';
+                    }
+                    $("#drp_Tax").html(list);
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function getitemsGroupData() {
+            $.ajax({
+                type: "Get",
+                url:   '@Url.Action("getitemsGroupData", "Purchase")',
+                dataType: 'json',
+                success: function (response) {
+                    var list = '';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].value + '">' + response[i].text+ '</option>';
+                    }
+                    $("#itemGrouplist").html(list);
+
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+
+        }
+
+        function getSupplierData() {
+            $.ajax({
+                type: "Get",
+                url:   '@Url.Action("getSupplierData", "Purchase")',
+                dataType: 'json',
+                success: function (response) {
+                    var list = '';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].value + '">' + response[i].text + '</option>';
+                    }
+                    $("#Supplierlist").html(list);
+
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+
+        }
+        function getitemsData(value) {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getitemsData", "Promotion")',
+                data: { id: value },
+                dataType: 'json',
+                success: function (response) {
+
+                    var list = '<option value="-1">Please Select Item</option>';
+                    for (var i = 0; i < response.length; i++) {
+                        list += '<option value="' + response[i].itemId + '">' + response[i].itemName + '</option>';
+                    }
+                    clearinputFields();
+                    $("#ItemsDropdown").html(list);
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+
+        }
+        function getselecteditemData(value) {
+            $.ajax({
+                type: "Get",
+                url: '@Url.Action("getitemsTaxData", "Purchase")',
+                data: { id: value },
+                dataType: 'json',
+                success: function (response) {
+                    var data = JSON.parse(JSON.stringify(response));
+                    console.log(data);
+                    var taxList = document.getElementById('drp_Tax');
+
+                    for (var i = 0; i < taxList.options.length; i++) {
+                        if (taxList.options[i].value == data[0].taxId) {
+                            $("#drp_Tax").val(taxList.options[i].value).change();
+
+
+
+                            return;
+                        }
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function storeTablebl() {
+            var tableData = new Array();
+            $('#PurchasedItems tr').each(function (row, tr) {
+                tableData[row] = {
+                    "ItemId": $(tr).find('td:eq(1)').text(),
+                    "ItemQuantity": $(tr).find('td:eq(3)').text(),
+                    "ItemPRICE": $(tr).find('td:eq(4)').text(),
+                    "ItemAmount": $(tr).find('td:eq(5)').text(),
+                    "ItemsPercentageDiscount": $(tr).find('td:eq(6)').text(),
+                    "ItemFixedDiscount": $(tr).find('td:eq(7)').text(),
+                    "DiscountedAmount": $(tr).find('td:eq(8)').text(),
+                    "ItemTax": $(tr).find('td:eq(9)').text(),
+                    "TaxId": $(tr).find('td:eq(10)').text(),
+                    "ItemGroupId": $(tr).find('td:eq(11)').text(),
+                    "Description": $(tr).find('td:eq(12)').text(),
+                }
+            });
+
+            return tableData;
+        }
+
+        function saveData() {
+            let Obj =
+            {
+                SupplierId: document.getElementById("Supplierlist").value,
+                grossAmount: document.getElementById("txt_GrossAmount").value,
+                TotalDiscount: document.getElementById("txt_TotalDiscount").value,
+                TotalTax: document.getElementById("txt_TotalTax").value,
+                TotalAmount: document.getElementById("txt_GrossAmount").value,
+                InvoiceNo: document.getElementById("txt_InvoiceNo").value,
+                Description: document.getElementById("masterDescription").value,
+                NetAmount: document.getElementById("lbl_TotalAmount").value,
+                PurchaseMasterId:document.getElementById("hiddenMasterId").innerHTML
+            };
+
+            var tableArray = storeTablebl();
+
+            if (tableArray.length === 0) {
+                $('#errorModal').modal('show');
+                document.getElementById("errormodalPara").innerHTML = "Select Items First";
+                return false;
+            }
+
+
+            if(document.getElementById("hiddenMasterId").innerHTML === "")
+            {
+                savePurchase(Obj, tableArray);
+            }
+            else
+            {
+                UpdatePurchase(Obj, tableArray);
+            }
+        }
+
+        function UpdatePurchase(obj , table) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdatePurchase", "Purchase")',
+                data: { model: obj, purchasedItems: JSON.stringify(table) },
+                dataType: 'json',
+                success: function (response) {
+                    if ($.trim(response) === 'true') {
+
+                        $('#modalpurchaseSuccess').modal('show');
+                        $('#PurchasedItems').empty();
+
+                        document.getElementById("txt_GrossAmount").value = "";
+                        document.getElementById("txt_TotalDiscount").value = "";
+                        document.getElementById("txt_TotalTax").value = "";
+                        document.getElementById("lbl_TotalAmount").value = "";
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+
+        }
+
+
+        function savePurchase(obj,table) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("Purchase", "Purchase")',
+                data: { model: obj, purchasedItems: JSON.stringify(table) },
+                dataType: 'json',
+                success: function (response) {
+                    if ($.trim(response) === 'true') {
+                        $('#modalpurchaseSuccess').modal('show');
+                        $('#PurchasedItems').empty();
+
+                        document.getElementById("txt_GrossAmount").value = "";
+                        document.getElementById("txt_TotalDiscount").value = "";
+                        document.getElementById("txt_TotalTax").value = "";
+                        document.getElementById("lbl_TotalAmount").value = "";
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+
+        }
+        function calculateTax() {
+
+            var amountAfterDiscount = document.getElementById("txt_AmountAfterDiscount").value;
+            var taxpercentegae = document.getElementById("txt_percentAge").value;
+            var taxAmount = (amountAfterDiscount * taxpercentegae) / 100;
+
+            document.getElementById("txt_taxAmount").value = taxAmount;
+
+            document.getElementById("txt_netAmount").value   = parseFloat(amountAfterDiscount) + parseFloat(taxAmount);
+
+        }
+        function getTax(value) {
+              $.ajax({
+                type: "Get",
+               url: '@Url.Action("GetTax", "Purchase")',
+                data: { id: value },
+                  success: function (response) {
+
+                      var data = JSON.stringify(response);
+                      var result = JSON.parse(data);
+
+                      document.getElementById("txt_percentAge").value = result.percentage;
+
+                      calculateTax();
+
+                      return response;
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function createTable() {
+            // creates a <table> element and a <tbody> element
+
+            let sr = 1;
+            var fixdiscount = document.getElementById("txt_FixedDiscount").value;
+            var discountPercentage = document.getElementById("txt_DiscountPercentage").value;
+            var amountAfterDiscount = document.getElementById("txt_AmountAfterDiscount").value;
+
+            var taxAmount = document.getElementById("txt_taxAmount").value
+            var taxid =  document.getElementById('drp_Tax');
+            var DetailDescription = document.getElementById("inpt_DetailDescription").value;
+            var itemGroupId = document.getElementById("itemGrouplist");
+
+            var id = document.getElementById("ItemsDropdown").value;
+            var Name = $('#ItemsDropdown').find('option:selected').text();
+            var quantity = document.getElementById("txt_Quantity").value;
+            var Price = document.getElementById("txt_Price").value;
+            var tbl = document.getElementById("PurchasedItems");
+            // creates a table row
+            var row = document.createElement("tr");
+            var SR = document.createElement("td");
+            var cId = document.createElement("td");
+            var cName = document.createElement("td");
+            var cquantity = document.createElement("td");
+            var cPrice = document.createElement("td");
+            var cAmount = document.createElement("td");
+            var cPercentage = document.createElement("td");
+            var cFixedDiscount = document.createElement("td");
+            var cDiscountedAmount = document.createElement("td");
+            var cTax = document.createElement("td");
+            var ctaxid = document.createElement("td");
+            var citemgroupid = document.createElement("td");
+            var cDescription = document.createElement("td");
+            var cDelete = document.createElement("td");
+
+
+            SR.setAttribute("align", "left");
+            cPrice.setAttribute('type', 'text')
+            cPrice.setAttribute('onkeypress', 'return onlyNumber(event)')
+            cDelete.setAttribute("align", "center");
+            cDelete.setAttribute("width", "100px");
+            cAmount.setAttribute("width", "100px");
+            cPercentage.setAttribute("width", "100px");
+            cFixedDiscount.setAttribute("width", "100px");
+            cDiscountedAmount.setAttribute("width", "100px");
+            cTax.setAttribute("width", "100px");
+            cTax.setAttribute("align", "center");
+
+            cDescription.setAttribute("width", "100px");
+            cDescription.setAttribute("align", "center");
+            cPercentage.setAttribute("align", "center");
+            cAmount.setAttribute("align", "center");
+            SR.setAttribute("align", "center");
+            SR.setAttribute("width", "100px");
+            cName.style.width = "100px";
+            cName.setAttribute("align", "left");
+            cquantity.setAttribute("align", "left");
+            cquantity.setAttribute("width", "10px");
+            cPrice.style.width = '50px';
+            cPrice.setAttribute("align", "right");
+
+            for (var r = 0, n = tbl.rows.length; r < n; r++) {
+                sr++;
+
+            }
+
+            if(CheckEmpty(quantity))
+            {
+            if (validate(id)) {
+                SR.innerHTML = sr;
+                cId.innerHTML = id;
+                cName.innerHTML = Name;
+                cquantity.innerHTML = quantity;
+                cPrice.innerHTML = Price;
+                cAmount.innerHTML = cquantity.innerHTML * cPrice.innerHTML;
+                cPercentage.innerHTML = discountPercentage;
+                cFixedDiscount.innerHTML = fixdiscount;
+                cDiscountedAmount.innerHTML = amountAfterDiscount;
+
+                cTax.innerHTML = taxAmount;
+                ctaxid.innerHTML = taxid.value;
+                citemgroupid.innerHTML = itemGroupId.value;
+                cDescription.innerHTML = DetailDescription;
+
+                cDelete.innerHTML = "<a data-toggle='tooltip' title='Delete' onclick='DeleteRows(this)'><li class='fa fa-trash'></li></a>";
+
+                row.appendChild(SR);
+                row.appendChild(cId).style.display = 'none';
+                row.appendChild(cName);
+                row.appendChild(cquantity);
+                row.appendChild(cPrice);
+                row.appendChild(cAmount);
+                row.appendChild(cPercentage);
+                row.appendChild(cFixedDiscount).style.display = 'none';
+                row.appendChild(cDiscountedAmount).style.display = 'none';
+                row.appendChild(cTax);
+                row.appendChild(ctaxid).style.display = 'none';
+                row.appendChild(citemgroupid).style.display = 'none';
+                row.appendChild(cDescription);
+                row.appendChild(cDelete);
+                tbl.appendChild(row);
+                calculateAmount(tbl);
+                clearinputFields();
+            }
+        }
+        }
+
+        function createTableFromUpdate(id, Name, quantity, Price, discountPercentage, totalTax, detailDescription,fixedDiscount,amountAfterDiscount,taxid,itemGroupId) {
+           
+            // creates a <table> element and a <tbody> element
+            let sr = 1;
+
+            var tbl = document.getElementById("PurchasedItems");
+            // creates a table row
+            var row = document.createElement("tr");
+            var SR = document.createElement("td");
+            var cId = document.createElement("td");
+            var cName = document.createElement("td");
+            var cquantity = document.createElement("td");
+            var cPrice = document.createElement("td");
+            var cAmount = document.createElement("td");
+            var cPercentage = document.createElement("td");
+            var cFixedDiscount = document.createElement("td");
+            var cDiscountedAmount = document.createElement("td");
+            var cTax = document.createElement("td");
+            var ctaxid = document.createElement("td");
+            var citemgroupid = document.createElement("td");
+            var cDescription = document.createElement("td");
+            var cDelete = document.createElement("td");
+            SR.setAttribute("align", "left");
+            cPrice.setAttribute('type', 'text')
+            cPrice.setAttribute('onkeypress', 'return onlyNumber(event)')
+            cDelete.setAttribute("align", "center");
+            cDelete.setAttribute("width", "100px");
+            cAmount.setAttribute("width", "100px");
+            cPercentage.setAttribute("width", "100px");
+            cFixedDiscount.setAttribute("width", "100px");
+            cDiscountedAmount.setAttribute("width", "100px");
+            cTax.setAttribute("width", "100px");
+            cTax.setAttribute("align", "center");
+
+            cDescription.setAttribute("width", "100px");
+            cDescription.setAttribute("align", "center");
+            cPercentage.setAttribute("align", "center");
+            cAmount.setAttribute("align", "center");
+            SR.setAttribute("align", "center");
+            SR.setAttribute("width", "100px");
+            cName.style.width = "100px";
+            cName.setAttribute("align", "left");
+            cquantity.setAttribute("align", "left");
+            cquantity.setAttribute("width", "10px");
+            cPrice.style.width = '50px';
+            cPrice.setAttribute("align", "right");
+
+            for (var r = 0, n = tbl.rows.length; r < n; r++) {
+                sr++;
+
+            }
+
+            if (validate(id)) {
+                SR.innerHTML = sr;
+                cId.innerHTML = id;
+                cName.innerHTML = Name;
+                cquantity.innerHTML = quantity;
+                cPrice.innerHTML = Price;
+                cAmount.innerHTML = cquantity.innerHTML * cPrice.innerHTML;
+                cPercentage.innerHTML = discountPercentage;
+                cFixedDiscount.innerHTML = fixedDiscount;
+                cDiscountedAmount.innerHTML = amountAfterDiscount;
+
+                cTax.innerHTML = totalTax;
+                ctaxid.innerHTML = taxid;
+                citemgroupid.innerHTML = itemGroupId;
+                cDescription.innerHTML = detailDescription;
+
+                cDelete.innerHTML = "<a data-toggle='tooltip' title='Delete' onclick='DeleteRows(this)'><li class='fa fa-trash'></li></a>";
+
+
+
+                row.appendChild(SR);
+                row.appendChild(cId).style.display = 'none';
+                row.appendChild(cName);
+                row.appendChild(cquantity);
+                row.appendChild(cPrice);
+                row.appendChild(cAmount);
+                row.appendChild(cPercentage);
+                row.appendChild(cFixedDiscount).style.display = 'none';
+                row.appendChild(cDiscountedAmount).style.display = 'none';
+                row.appendChild(cTax);
+                row.appendChild(ctaxid).style.display = 'none';
+                row.appendChild(citemgroupid).style.display = 'none';
+                row.appendChild(cDescription);
+                row.appendChild(cDelete);
+                tbl.appendChild(row);
+                calculateAmount(tbl);
+                clearinputFields();
+            
+        }
+      }
+
+
+        function DeleteRows(value) {
+            var tbl = document.getElementById("PurchasedItems");
+            var row = value.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            calculateAmount(tbl);
+        }
+
+    </script>
+</body>

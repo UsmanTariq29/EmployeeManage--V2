@@ -1,0 +1,556 @@
+﻿@model EmployeeManage.ViewModels.Request.AddPromotionRequestVM
+@{
+    ViewBag.Title = "Promotion Definition";
+
+}
+
+<body>
+    <div class="box-header with-border">
+
+        <h3 class="box-title">Add Promotion</h3>
+    </div>
+    <div class="box box-default">
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="form-group row">
+                        <label class="col-sm-6 form-label" asp-for="PromotionStartDate" for="PromotionStartDate">From</label>
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" asp-for="PromotionStartDate" placeholder="startDate" required="" data-val="true" data-val-required="The PromotionStartDate field is required." id="PromotionStartDate" name="PromotionStartDate" value="2022-12-12">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-1 form-label" asp-for="PromotionEndDate" for="PromotionEndDate">To</label>
+                        <div class="col-md-5">
+                            <input type="date" class="form-control" asp-for="PromotionEndDate" placeholder="endDate" required="" data-val="true" data-val-required="The PromotionEndDate field is required." id="PromotionEndDate" name="PromotionEndDate" value="2022-12-12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="PromotionName" class="col-sm-2 form-label">Name</label>
+                <div class="col-md-4">
+                    <input asp-for="PromotionName" type="text" class="form-control" id="Promotionname" placeholder="Promotion Name" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 form-label">Description</label>
+                <div class="col-md-4">
+                    <input asp-for="Description" type="text" class="form-control" id="promotiondescription" placeholder="Description" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="PromotionTypeId" class="col-sm-2 form-label">Type</label>
+                <div class="col-md-4">
+                    @Html.DropDownList("ItemGroupId", Model.PromotionTypeList as SelectList, new { @class = "form-control select2 ", id = "Promotiontypelist" })
+                    @Html.ValidationMessageFor(x => x.PromotionTypeId, "", new { @class = "text-danger" })
+                    <span asp-validation-for="PromotionTypeId" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label asp-for="PromotionPercentage" class="col-sm-2 form-label">Percentage</label>
+                <div class="col-md-2">
+                    <input asp-for="PromotionPercentage" type="number" class="form-control" placeholder="Percentage" onchange="percentageChange(this.value)" id="promotionpercent" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ItemGroupId" class="col-sm-2 form-label">ItemGroup</label>
+                <div class="col-md-4">
+                    @Html.DropDownList("ItemGroupId", Model.ItemGroupList as SelectList, new { @class = "form-control select2", id = "itemGrouplist", @onchange = "getitemsData(this.value)" })
+                    @Html.ValidationMessageFor(x => x.ItemGroupId, "", new { @class = "text-danger" })
+                    <span asp-validation-for="ItemGroupId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card">
+                        <!-- /.box-header -->
+                        <div class="card-header">
+                            <h4>Items List</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="panel-body">
+                                <div id="ctl00_mainPanel_Panel4" class="panel panel-border" style="height:200px;overflow:auto;">
+                                    <table id="ctl00_mainPanel_Gv" class="table table-bordered table-hover table-responsive ">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <input id="checkboxval" type="checkbox" onclick="checkboxselection(this)" />
+                                                </th>
+                                                <th>
+                                                    Sr.
+                                                </th>
+                                                <th>
+                                                    Item Name
+                                                </th>
+                                                <th>
+                                                    Price
+                                                </th>
+                                                <th style="text-align:center">
+                                                    Percent
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itemTablebody">
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-1">
+                    <button class="btn btn-primary col-md-12" type="button" onclick="GetSelected();">
+                        <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-md-5">
+                    <div class="card">
+                        <!-- /.box-header -->
+                        <div class="card-header">
+                            <h4>Promotional Items</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class=" panel panel-default">
+                                <div class="panel-body">
+                                    <div id="ctl00_mainPanel_Panel4" class="panel panel-border" style="height:200px;overflow:auto;">
+                                        <table class="table table-bordered table-hover table-responsive ">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Sr.
+                                                    </th>
+                                                    <th>
+                                                        Item Name
+                                                    </th>
+                                                    <th>
+                                                        Price
+                                                    </th>
+                                                    <th>
+                                                        Percent
+                                                    </th>
+                                                    <th>
+
+                                                    </th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody id="updateditemTablebody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="text-right">
+                <button type="button" class="btn btn-primary" onclick="SaveValid()">Save</button>
+            </div>
+            <div asp-validation-summary="All"></div>
+        </div>
+    
+    <div class="modal modal-success fade" id="successMessage" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Promotion Created Successfully!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div> 
+    <div class="modal modal-danger fade" id="ErrorModalId" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Dates Already Occupied!!!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal modal-danger fade" id="errorModal" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="errorPara" ></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <script type="text/javascript">
+
+        function ItemSearch() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("itemTablebody");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+
+
+        function GetSelected() {
+            //Reference the Table.
+            var grid = document.getElementById("itemTablebody");
+            for (var i = 0; i < grid.rows.length; i++) {
+                if (grid.rows[i].cells[0].firstChild.checked) {
+                    var id = grid.rows[i].cells[2].innerHTML;
+                    var name = grid.rows[i].cells[3].innerHTML;
+                    var price = grid.rows[i].cells[4].innerHTML;
+                    var percent = grid.rows[i].cells[5].firstChild.value;
+
+                    Transferrows(id, name, price, percent);
+
+                    document.getElementById("promotionpercent").disabled = true;
+                    document.getElementById("Promotiontypelist").disabled = true;
+                }
+            }
+        }
+        function percentageChange(value) {
+            var grid = document.getElementById("itemTablebody");
+
+            for (var i = 0; i < grid.rows.length; i++) {
+                grid.rows[i].cells[5].firstChild.value = value;
+            }
+        }
+
+        function checkboxselection(value) {
+            var get = document.getElementsByClassName("checkclass");
+
+            for (var i = 0; i < get.length; i++) {
+                get[i].checked = value.checked;
+            }
+        }
+
+        function getitemsData(value) {
+            $.ajax({
+                type: "Get",
+                url: "getitemsData",
+                data: { id: value },
+                dataType: 'json',
+                success: function (response) {
+
+                    if (response.length == 0) {
+                        alert("response is Empty");
+                        return false;
+                    }
+                    else {
+                        $('#itemTablebody').empty();
+
+                        for (i = 0; i < response.length; i++) {
+                           
+                            CreateTable(response[i].itemId, response[i].itemName, response[i].itemsPrice);
+                        }
+                    }
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+
+        }
+
+        function onlyNumberKey(evt) {
+
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function SaveValid() {
+
+            let AddpromotionObj =
+            {
+                PromotionStartDate: document.getElementById("PromotionStartDate").value,
+                PromotionEndDate: document.getElementById("PromotionEndDate").value,
+                PromotionName: document.getElementById("Promotionname").value,
+                Description: document.getElementById("promotiondescription").value,
+                PromotionPercentage: document.getElementById("promotionpercent").value,
+                PromotionTypeId: document.getElementById("Promotiontypelist").value,
+            };
+
+            var tableArray = storeTablebl();
+
+            if (tableArray.length === 0) {
+
+                $('#errorModal').modal('show');
+                document.getElementById("errorPara").innerHTML = "Select Items First";
+                return false;
+            }
+
+            SaveTable(tableArray, AddpromotionObj);
+        }
+
+        function SaveTable(TableItems, object) {
+            $.ajax({
+                type: "POST",
+                url: "Promotion",
+                data: { promotionItems: JSON.stringify(TableItems), model: object},
+                dataType: "text",
+                success: function (response) {
+
+                    var res = response;
+
+                    if ($.trim(res) === 'true') {
+                        $('#successMessage').modal('show');
+                        $('#updateditemTablebody').empty();
+                    }
+                    else  {
+                        $('#ErrorModalId').modal('show');
+                    }
+
+                    console.log(res);
+                },
+                error: function (req, status, error) {
+                    console.log("error" + error);
+                }
+            });
+        }
+
+        function DeleteRow(value) {
+            var row = value.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+
+            var x = document.getElementById("updateditemTablebody").rows.length;
+
+            if (x < 1) {
+
+                document.getElementById("promotionpercent").disabled = false;
+                document.getElementById("Promotiontypelist").disabled = false;
+            }
+        }
+
+        function storeTablebl() {
+            var tableData = new Array();
+            $('#updateditemTablebody tr').each(function (row, tr) {
+                tableData[row] = {
+                    "ID": $(tr).find('td:eq(1)').text(),
+                    "NAME": $(tr).find('td:eq(2)').text(),
+                    "PRICE": $(tr).find('td:eq(3)').text(),
+                    "PERCENTAGE": $(tr).find('td:eq(4)').text()
+                }
+            });
+
+            return tableData;
+        }
+
+        function Validate(id, Percent) {
+
+            var flag = true;
+            document.getElementById("errorPara").innerHTML = "";
+
+            var table1Data = new Array();
+
+            $('#updateditemTablebody tr').each(function (row , tr) {
+                table1Data[row] = {
+                    "ID": $(tr).find('td:eq(1)').text()
+                }
+
+                if ($(tr).find('td:eq(1)').text() == id) {
+
+                    document.getElementById("updateditemTablebody").rows[row].style.backgroundColor = "#D3D3D3";
+
+                    $('#errorModal').modal('show');
+
+                    document.getElementById("errorPara").innerHTML = "Item Already Selected At Serial No  " + $(tr).find('td:eq(0)').text();
+                    setTimeout(() => {
+                        document.getElementById("updateditemTablebody").rows[row].style.backgroundColor = "#FFFFFF";
+                    }, 10000)
+
+
+                    var elm = document.getElementById("updateditemTablebody").rows[row];
+                    elm.scrollIntoView(true);
+                    alert("usman");
+
+                    flag = false;
+                    return false;
+                }
+            });
+
+            if (Percent > document.getElementById("promotionpercent").value) {
+                $('#errorModal').modal('show');
+                document.getElementById("errorPara").innerHTML = "Please Select Valid Percentage";
+                flag = false;
+            }
+
+
+            return flag;
+
+        }
+
+        function CreateTable(id, Name, Price) {
+            // creates a <table> element and a <tbody> element
+            let sr = 1;
+
+            var tbl = document.getElementById("itemTablebody");
+            // creates a table row
+            var row = document.createElement("tr");
+            var checkbox = document.createElement("td");
+            checkbox.innerHTML = '<input id="check" class="checkclass" type="checkbox" />';
+            var SR = document.createElement("td");
+            var cId = document.createElement("td");
+            var cName = document.createElement("td");
+            var cPrice = document.createElement("td");
+            var cPercent = document.createElement("td");
+
+
+            cPercent.innerHTML = '<input id="promotinItemPercent"  type="text" class="col-md-12 text-right"  onkeypress= "return onlyNumberKey(event)" required />';
+
+
+            SR.setAttribute("align", "center");
+            SR.setAttribute("width", "50px");
+            cName.style.width = "150px";
+            cName.setAttribute("align", "left");
+            cPrice.setAttribute("align", "right");
+            cPrice.setAttribute("width", "100px");
+            
+            cPercent.setAttribute("align", "right");
+
+            for (var r = 0, n = tbl.rows.length; r < n; r++) {
+
+                sr++;
+            }
+
+            SR.innerHTML = sr;
+            cId.innerHTML = id;
+            cName.innerHTML = Name;
+            cPrice.innerHTML = Price
+            
+            var promotionpercentFlat = document.getElementById("promotionpercent").value;
+            cPercent.innerHTML = '<input id="promotinItemPercent"  type="text" class="col-md-12 text-right"   value ="' + promotionpercentFlat + '"  onkeypress= "return onlyNumberKey(event)" required />';
+
+            row.appendChild(checkbox);
+            row.appendChild(SR);
+            row.appendChild(cId).style.display = 'none';
+            row.appendChild(cName);
+            row.appendChild(cPrice);
+            row.appendChild(cPercent);
+
+            tbl.appendChild(row);
+        }
+
+        function Transferrows(id, Name, Price, Percent) {
+            // creates a <table> element and a <tbody> element
+            let sr = 1;
+
+            var tbl = document.getElementById("updateditemTablebody");
+            // creates a table row
+            var row = document.createElement("tr");
+            var SR = document.createElement("td");
+            var cId = document.createElement("td");
+            var cName = document.createElement("td");
+            var cPrice = document.createElement("td");
+            var cPercent = document.createElement("td");
+            var cDelete = document.createElement("td");
+            cPercent.setAttribute('type', 'text')
+            cPercent.setAttribute('onkeypress', 'return onlyNumberKey(event)')
+            cDelete.setAttribute("align", "center");
+            cDelete.setAttribute("width", "100px");
+
+            SR.setAttribute("align", "center");
+            SR.setAttribute("width", "100px");
+            cName.style.width = "100px";
+            cName.setAttribute("align", "left");
+            cPrice.setAttribute("align", "left");
+            cPrice.setAttribute("width", "10px");
+            cPercent.style.width = '50px';
+            cPercent.setAttribute("align", "right");
+
+            for (var r = 0, n = tbl.rows.length; r < n; r++) {
+
+                sr++;
+            }
+
+            if (Validate(id, Percent)) {
+
+                SR.innerHTML = sr;
+                cId.innerHTML = id;
+                cName.innerHTML = Name;
+                cPrice.innerHTML = Price;
+
+                cPercent.innerHTML = Percent;
+
+                cDelete.innerHTML = "<a data-toggle='tooltip' title='Delete' onclick='DeleteRow(this)'><li class='fa fa-trash'></li></a>";
+
+                row.appendChild(SR);
+                row.appendChild(cId).style.display = 'none';
+                row.appendChild(cName);
+                row.appendChild(cPrice);
+                row.appendChild(cPercent);
+                row.appendChild(cDelete);
+
+                tbl.appendChild(row);
+            }
+
+        }
+
+
+
+    </script>
+</body>

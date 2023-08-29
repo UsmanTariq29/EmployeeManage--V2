@@ -1,0 +1,106 @@
+﻿@model EmployeeManage.ViewModels.Request.ItemsRequest
+@{
+    ViewBag.Title = "Item Definition";
+
+}
+
+<body>
+    <div class="card">
+    <div class="card-header">
+
+        <h3 class="box-title">Add Items</h3>
+    </div>
+        <!-- /.box-header -->
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-controller="ItemsGroup" asp-action="AddItems" method="post">
+                @if (TempData["Success"] != null)
+                {
+                    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+                }
+                <div class="form-group row">
+
+                    <label asp-for="ItemGroupId" class="col-sm-2 form-label">Item Group</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("ItemGroupId", Model.GroupList as SelectList, new { @class = "form-control select2 ", id = "DepartList" })
+                        @Html.ValidationMessageFor(x => x.ItemGroupId, "", new { @class = "text-danger" })
+                        <span asp-validation-for="ItemGroupId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemCode" class="col-sm-2 form-label">Code</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemCode" type="text" class="form-control" placeholder="Item Code" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemName" class="col-sm-2 form-label">Name</label>
+                    <div class="col-md-4">
+                        <input asp-for="ItemName" type="text" class="form-control" placeholder="Item Name" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ItemReorder" class="col-sm-2 form-label">ReorderLevel</label>
+                    <div class="col-md-2">
+                        <input asp-for="ItemReorder" type="number" class="form-control" placeholder="Reorder Quantity" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="UnitInCase" class="col-sm-2 form-label">UOM</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("UnitInCase", Model.UnitInCaseList as SelectList, new { @class = "form-control select2 ", id = "DepartList" })
+                        @Html.ValidationMessageFor(x => x.UnitInCase, "", new { @class = "text-danger" })
+                        <span asp-validation-for="UnitInCase" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label asp-for="TaxId" class="col-sm-2 form-label">Tax</label>
+                    <div class="col-md-4">
+                        @Html.DropDownList("Taxid", Model.TaxList as SelectList, new { @class = "form-control select2 ", id = "TaxList" })
+                        @Html.ValidationMessageFor(x => x.TaxId, "", new { @class = "text-danger" })
+                        <span asp-validation-for="TaxId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsActive" type="checkbox">
+                            IsActive
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsBatchItem" type="checkbox">
+                            IS BatchItem
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsExpiryAllowed" type="checkbox">
+                            Expiry Allowed
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsReplaceable" type="checkbox">
+                            IsReplaceable
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="IsExempted" type="checkbox">
+                            Exempted
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-md-right">
+                    <i class="fas fa-save"></i> Save
+                </button>
+                <div asp-validation-summary="All"></div>
+            </form>
+        </div>
+    </div>
+  
+</body>
